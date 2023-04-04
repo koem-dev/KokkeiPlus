@@ -51,55 +51,53 @@ const LoginScreen = () => {
   };
 
   return (
-    <ScrollView>
-      <View style={main.container}>
-        <View style={forms.formContainer}>
-          <Text style={forms.formTitle}>Selamat datang di Kokkei Plus</Text>
+    <View style={main.container}>
+      <View style={forms.formContainer}>
+        <Text style={forms.formTitle}>Selamat datang di Kokkei Plus</Text>
 
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Email: *</Text>
-            <TextInput
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Masukkan email"
-              inputMode="email"
-              style={forms.textInput}
-            />
-          </View>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Password: *</Text>
-            <TextInput
-              onChangeText={setPassword}
-              value={password}
-              placeholder="Masukkan password"
-              secureTextEntry={!showPassword}
-              style={forms.textInput}
-            />
-          </View>
-
-          <View style={forms.checkboxContainer}>
-            <Checkbox
-              value={showPassword}
-              onValueChange={toggleShowPassword}
-              style={forms.checkbox}
-            />
-            <Text style={forms.checkboxText}>Tampilkan password</Text>
-          </View>
-
-          <TouchableOpacity onPress={handleLogin} style={forms.buttonContainer}>
-            <Text style={forms.buttonText}>Login</Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            onPress={directToRegisterScreen}
-            style={forms.directContainer}
-          >
-            <Text style={forms.Text}>Belum punya akun?</Text>
-          </TouchableOpacity>
+        <View style={forms.textInputContainer}>
+          <Text style={forms.textInputTitle}>Email: *</Text>
+          <TextInput
+            onChangeText={setEmail}
+            value={email}
+            placeholder="Masukkan email"
+            inputMode="email"
+            style={forms.textInput}
+          />
         </View>
+
+        <View style={forms.textInputContainer}>
+          <Text style={forms.textInputTitle}>Password: *</Text>
+          <TextInput
+            onChangeText={setPassword}
+            value={password}
+            placeholder="Masukkan password"
+            secureTextEntry={!showPassword}
+            style={forms.textInput}
+          />
+        </View>
+
+        <View style={forms.checkboxContainer}>
+          <Checkbox
+            value={showPassword}
+            onValueChange={toggleShowPassword}
+            style={forms.checkbox}
+          />
+          <Text style={forms.checkboxText}>Tampilkan password</Text>
+        </View>
+
+        <TouchableOpacity onPress={handleLogin} style={forms.buttonContainer}>
+          <Text style={forms.buttonText}>Login</Text>
+        </TouchableOpacity>
+
+        <TouchableOpacity
+          onPress={directToRegisterScreen}
+          style={forms.directContainer}
+        >
+          <Text style={forms.Text}>Belum punya akun?</Text>
+        </TouchableOpacity>
       </View>
-    </ScrollView>
+    </View>
   );
 };
 

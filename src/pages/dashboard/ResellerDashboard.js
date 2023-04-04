@@ -4,7 +4,9 @@ import React from "react";
 const ResellerDashboard = () => {
   return (
     <View>
-      <Text>ResellerDashboard</Text>
+      <Text>{`\u003e Request Pesanan`}</Text>
+      <Text>{`\u003e Cek Stok`}</Text>
+      <Text>{`\u003e Cek Pesanan`}</Text>
     </View>
   );
 };

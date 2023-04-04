@@ -5,6 +5,8 @@ import { auth, db } from "../services/firebase";
 import pages from "../../assets/styles/Pages";
 import main from "../../assets/styles/Main";
 import { useNavigation } from "@react-navigation/native";
+import ResellerDashboard from "./dashboard/ResellerDashboard";
+import OperatorDashboard from "./dashboard/OperatorDashboard";
 
 function searchRoles() {
   switch (user?.roles) {
@@ -58,13 +60,23 @@ const HomeScreen = () => {
       ) : (
         <View>
           {user?.roles === "reseller" ? (
-            navigation.navigate("ResellerDashboard")
+            <View>
+              <Text style={pages.pageSubTitle}>Reseller Dashboard</Text>
+              <ResellerDashboard />
+            </View>
           ) : user?.roles === "sales" ? (
-            navigation.navigate("SalesDashboard")
+            <View>
+              <Text style={pages.pageSubTitle}>Sales Dashboard</Text>
+            </View>
           ) : user?.roles === "assembler" ? (
-            navigation.navigate("AssemblerDashboard")
+            <View>
+              <Text style={pages.pageSubTitle}>Assembler Dashboard</Text>
+            </View>
           ) : user?.roles === "operator" ? (
-            navigation.navigate("OperatorDashboard")
+            <View>
+              <Text style={pages.pageSubTitle}>Operator Dashboard</Text>
+              <OperatorDashboard />
+            </View>
           ) : (
             <Text style={pages.pageInformation}>
               Kami ingin memberitahukan bahwa saat ini akunmu sedang mengalami
@@ -72,6 +84,11 @@ const HomeScreen = () => {
               berupaya untuk memperbaikinya dalam waktu paling lama satu jam
               kerja.
             </Text>
+          )}
+          {user?.roles ? (
+            <Text style={pages.pageInformation}></Text>
+          ) : (
+            <Text style={pages.pageInformation}></Text>
           )}
         </View>
       )}

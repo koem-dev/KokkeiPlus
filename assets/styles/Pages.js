@@ -11,6 +11,15 @@ const pages = StyleSheet.create({
     color: "#5E503F",
     fontFamily: "Sans-Regular",
   },
+  pageSubTitle: {
+    fontSize: 20,
+    marginTop: 25,
+    marginBottom: 25,
+    width: 320,
+    textAlign: "left",
+    color: "#000",
+    fontFamily: "Sans-Regular",
+  },
   pageInformation: {
     fontSize: 16,
     marginTop: 25,
