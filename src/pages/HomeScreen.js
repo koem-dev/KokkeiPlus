@@ -1,5 +1,6 @@
 import React, { useEffect, useLayoutEffect, useState } from "react";
-import { StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View, BackHandler } from "react-native";
+import { StackActions, NavigationActions } from "react-navigation";
 
 import { auth, db } from "../services/firebase";
 import pages from "../../assets/styles/Pages";
@@ -25,13 +26,8 @@ function searchRoles() {
 
 const HomeScreen = () => {
   const [user, setUser] = useState(null); // ? This user
-  navigation = useNavigation();
 
-  useLayoutEffect(() => {
-    navigation.setOptions({
-      headerBackTitleVisible: false,
-    });
-  }, [navigation]);
+  const navigation = useNavigation();
 
   useEffect(() => {
     db.collection("users")

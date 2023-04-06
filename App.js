@@ -4,8 +4,11 @@ import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 
 import MainStack from "./stack/MainStack";
+import AuthStack from "./stack/AuthStack";
+
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { View } from "react-native";
 
 export default function App() {
   let [fontsLoaded] = useFonts({

@@ -34,7 +34,7 @@ const LoginScreen = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       if (user) {
-        navigation.navigate("Home");
+        directToHomeScreen();
       }
     });
 
@@ -45,7 +45,7 @@ const LoginScreen = () => {
     try {
       AuthProvider.login(email, password).then((result) => {
         if (result) {
-          navigation.navigate("Home");
+          directToHomeScreen();
         }
       });
     } catch (error) {
@@ -55,6 +55,13 @@ const LoginScreen = () => {
 
   const directToRegisterScreen = () => {
     navigation.navigate("Register");
+  };
+
+  const directToHomeScreen = () => {
+    navigation.reset({
+      index: 0,
+      routes: [{ name: "Home" }],
+    });
   };
 
   return (
