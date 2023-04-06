@@ -12,17 +12,24 @@ import {
 import Checkbox from "expo-checkbox";
 import { useNavigation } from "@react-navigation/native";
 
-import { auth } from "../services/firebase";
+import { auth, AuthProvider } from "../services/firebase";
 import forms from "../../assets/styles/Forms";
 import main from "../../assets/styles/Main";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
+  const [loggedIn, setLoggedIn] = useState(false);
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [showPassword, setShowPassword] = useState(false);
   const toggleShowPassword = () => setShowPassword(!showPassword);
+
+  useEffect(() => {
+    AuthProvider.autoLogin().then((result) => {
+      setLoggedIn(result);
+    });
+  }, []);
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
@@ -36,11 +43,11 @@ const LoginScreen = () => {
 
   const handleLogin = () => {
     try {
-      auth
-        .signInWithEmailAndPassword(email, password)
-        .then((userCredential) => {
-          const user = userCredential.user;
-        });
+      AuthProvider.login(email, password).then((result) => {
+        if (result) {
+          navigation.navigate("Home");
+        }
+      });
     } catch (error) {
       console.log(error);
     }
