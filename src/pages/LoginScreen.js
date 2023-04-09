@@ -60,7 +60,7 @@ const LoginScreen = () => {
   const directToHomeScreen = () => {
     navigation.reset({
       index: 0,
-      routes: [{ name: "Home" }],
+      routes: [{ name: "HomeGroup" }],
     });
   };
 

@@ -1,5 +1,4 @@
 import firebase from "firebase/compat";
-import { initializeApp } from "firebase/app";
 import AsyncStorage from "@react-native-async-storage/async-storage";
 import "firebase/compat/storage";
 import "firebase/compat/auth";
@@ -48,6 +47,7 @@ const AuthProvider = {
         const userCredential = await firebase
           .auth()
           .signInWithEmailAndPassword(userEmail, userPassword);
+
         return true;
       } else {
         return false;
@@ -63,6 +63,7 @@ const AuthProvider = {
       await firebase.auth().signOut();
       await AsyncStorage.removeItem("userPassword");
       await AsyncStorage.removeItem("userEmail");
+
       return true;
     } catch (error) {
       console.error("Error logging out:", error);
