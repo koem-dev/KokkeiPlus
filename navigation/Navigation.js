@@ -3,11 +3,13 @@ import React from "react";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 
-import LoginScreen from "../src/pages/LoginScreen";
-import RegisterScreen from "../src/pages/RegisterScreen";
+import LoginScreen from "../src/pages/auth/LoginScreen";
+import RegisterScreen from "../src/pages/auth/RegisterScreen";
 
 import HomeScreen from "../src/pages/HomeScreen";
 import UserProfile from "../src/pages/user/UserProfile";
+
+import { MaterialIcons } from "@expo/vector-icons";
 
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
@@ -32,9 +34,38 @@ function AuthStack() {
 
 function HomeTab() {
   return (
-    <Tab.Navigator>
-      <Tab.Screen name="Home" component={HomeScreen} />
-      <Tab.Screen name="Profile" component={UserProfile} />
+    <Tab.Navigator
+      screenOptions={{
+        tabBarLabelPosition: "below-icon",
+        tabBarStyle: {
+          height: 80,
+          backgroundColor: "#fff",
+        },
+        tabBarLabelStyle: {
+          fontSize: 12,
+          marginTop: -20,
+          marginBottom: 15,
+        },
+      }}
+    >
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="home" color={color} size={30} />
+          ),
+        }}
+        name="Home"
+        component={HomeScreen}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <MaterialIcons name="account-circle" color={color} size={30} />
+          ),
+        }}
+        name="Profile"
+        component={UserProfile}
+      />
     </Tab.Navigator>
   );
 }

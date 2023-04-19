@@ -10,9 +10,7 @@ import {
 
 import Checkbox from "expo-checkbox";
 
-import { auth, db } from "../services/firebase";
-import forms from "../../assets/styles/Forms";
-import main from "../../assets/styles/Main";
+import { auth, db } from "../../services/firebase";
 
 const RegisterScreen = () => {
   // ? Data

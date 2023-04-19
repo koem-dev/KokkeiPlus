@@ -1,13 +1,18 @@
-import React, { useState } from "react";
-import { View, Text } from "react-native";
+import React, { useEffect, useState } from "react";
+import { View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { AuthProvider } from "../../services/firebase";
 import { useNavigation } from "@react-navigation/native";
+import { Octicons } from "@expo/vector-icons";
+import { db, auth } from "../../services/firebase";
 
 import global from "../../../assets/styles/GlobalStyles";
+import ConfirmModal from "../../components/modals/ConfirmModal";
 
 const Profile = () => {
-  const [showAlert, setShowAlert] = useState(false);
+  const [modalVisible, setModalVisible] = useState(false);
+  const [modalResult, setModalResult] = useState(false);
+  const [user, setUser] = useState(null); // ? This user
   const navigation = useNavigation();
 
   const logoutHandler = () => {
@@ -21,52 +26,113 @@ const Profile = () => {
     });
   };
 
-  const alertPressHandler = () => {
-    setShowAlert(true);
+  const showModal = () => {
+    setModalVisible(true);
   };
 
-  const alertCancelHandler = () => {
-    setShowAlert(false);
-  };
-
-  const alertConfirmHandler = () => {
-    setShowAlert(false);
+  const handleModalConfirm = () => {
+    setModalResult(true);
     logoutHandler();
+    setModalVisible(false);
   };
+
+  const handleModalClose = () => {
+    setModalVisible(false);
+  };
+
+  useEffect(() => {
+    db.collection("users")
+      .doc(auth.currentUser.uid)
+      .get()
+      .then((user) => {
+        setUser(user.data());
+      });
+  }, []);
 
   return (
     <View style={global.container}>
-      <TouchableOpacity style={[global.btnOutline, global.spacing]}>
-        <Text style={[global.btnTextOutline]}>Bantuan?</Text>
-      </TouchableOpacity>
-      <TouchableOpacity
-        onPress={alertPressHandler}
-        style={[global.btnDark, global.spacing]}
-      >
-        <Text style={[global.btnTextDark]}>Logout</Text>
-      </TouchableOpacity>
-
-      {showAlert && (
-        <View style={global.alertContainer}>
-          <Text style={[global.alertTitle, global.spacing]}>
-            Apakah Anda yakin ingin keluar?
-          </Text>
-          <View style={global.alertBtnContainer}>
-            <TouchableOpacity
-              onPress={alertCancelHandler}
-              style={[global.alertBtnDark, global.spacing]}
-            >
-              <Text style={global.alertBtnTextDark}>Cancel</Text>
-            </TouchableOpacity>
-            <TouchableOpacity
-              onPress={alertConfirmHandler}
-              style={[global.alertBtnOutline, global.spacing]}
-            >
-              <Text style={global.alertBtnTextOutline}>Confirm</Text>
-            </TouchableOpacity>
-          </View>
+      <View style={global.boxWrapperContainer}>
+        <View style={global.userWrapper}>
+          <Text style={global.userTitle}>Halo.</Text>
+          <Text style={global.userName}>{user?.name || ""}</Text>
+          <Text style={global.userPhone}>{user?.phoneNumber || ""}</Text>
         </View>
-      )}
+
+        <View style={global.boxWrapper}>
+          <Text style={global.boxWrapperTitle}>Pengaturan Akun</Text>
+          <TouchableOpacity
+            onPress={showModal}
+            style={[global.boxWrapperPressable, global.spacing]}
+          >
+            <Octicons
+              name="person"
+              size={24}
+              color="black"
+              style={global.boxWrapperPressableVector}
+            />
+            <View style={global.boxWrapperPressableDetail}>
+              <Text style={global.boxWrapperPressableTitle}>Detail Akun</Text>
+              <Text style={global.boxWrapperPressableDescription}>
+                Alamat, nomor telepon, email, dan lainnya
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={global.lineBreak} />
+
+          <TouchableOpacity
+            onPress={showModal}
+            style={[global.boxWrapperPressable, global.spacing]}
+          >
+            <Octicons
+              name="lock"
+              size={24}
+              color="black"
+              style={global.boxWrapperPressableVector}
+            />
+            <View style={global.boxWrapperPressableDetail}>
+              <Text style={global.boxWrapperPressableTitle}>Keamanan</Text>
+              <Text style={global.boxWrapperPressableDescription}>
+                Ubah pengaturan keamanan akun
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={global.lineBreak} />
+        </View>
+
+        <View style={global.boxWrapper}>
+          <Text style={global.boxWrapperTitle}>Area Berbahaya</Text>
+          <TouchableOpacity
+            onPress={showModal}
+            style={[global.boxWrapperPressable, global.spacing]}
+          >
+            <Octicons
+              name="link-external"
+              size={25}
+              style={global.boxWrapperPressableVector}
+            />
+            <View style={global.boxWrapperPressableDetail}>
+              <Text style={global.boxWrapperPressableTitle}>Logout</Text>
+              <Text style={global.boxWrapperPressableDescription}>
+                Keluar dari akun
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={global.lineBreak} />
+
+          <ConfirmModal
+            visible={modalVisible}
+            onConfirm={handleModalConfirm}
+            onClose={handleModalClose}
+            ModalCancelText={"Batal"}
+            ModalConfirmText={"Keluar"}
+            ModalTitle={"Keluar dari Kokkei Plus"}
+            ModalDescription={"Apakah Anda ingin keluar?"}
+          />
+        </View>
+      </View>
     </View>
   );
 };

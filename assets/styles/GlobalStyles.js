@@ -1,98 +1,91 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { StyleSheet } from "react-native";
+import * as GC from "../colors/GlobalColors";
 
 const global = StyleSheet.create({
-  // Container
+  //! Container
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: GC.background,
     alignItems: "center",
   },
-  // Spacing
+
+  //! Box Wrapper Container
+  boxWrapperContainer: {
+    width: "100%",
+    marginTop: 10,
+  },
+  // Box Wrapper
+  boxWrapper: {
+    backgroundColor: GC.background,
+    width: "100%",
+    padding: 10,
+    marginBottom: 10,
+  },
+  // Box Wrapper Title
+  boxWrapperTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: GC.primaryText,
+    padding: 10,
+  },
+  // Box Wrapper Pressable
+  boxWrapperPressable: {
+    backgroundColor: "transparent",
+    width: "100%",
+    alignItems: "center",
+    flexDirection: "row",
+    marginLeft: 18,
+  },
+  boxWrapperPressableDetail: {
+    marginLeft: 10,
+    flexDirection: "column",
+  },
+  boxWrapperPressableTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: GC.primaryText,
+  },
+  boxWrapperPressableDescription: {
+    fontSize: 12,
+    color: GC.secondaryText,
+  },
+  boxWrapperPressableVector: {
+    color: GC.primaryText,
+  },
+
+  //! Line Break
+  lineBreak: {
+    width: "90%",
+    height: 1,
+    backgroundColor: GC.border,
+    marginTop: 10,
+    marginBottom: 10,
+    alignSelf: "center",
+  },
+
+  //! Spacing
   spacing: {
     margin: 10,
   },
 
-  // Button Dark
-  btnDark: {
-    backgroundColor: "#415D43",
-    padding: 15,
-    borderRadius: 15,
-    width: "80%",
-    height: 50,
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
-  },
-  btnTextDark: {
-    color: "#fff",
-    fontSize: 13,
-  },
-
-  // Alert
-  alertContainer: {
-    backgroundColor: "#fff",
+  //! User
+  userWrapper: {
     padding: 20,
-    borderRadius: 15,
-    width: "80%",
-    height: 150,
-    alignItems: "center",
-    marginTop: 20,
-    marginBottom: 20,
-    borderWidth: 1,
-    borderColor: "#415D43",
+    marginBottom: 30,
   },
-  alertTitle: {
-    fontSize: 14,
+  userTitle: {
+    fontSize: 30,
     fontWeight: "bold",
+    color: GC.primaryText,
+    marginBottom: 10,
   },
-  alertBtnContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    width: "100%",
-    marginTop: 5,
+  userName: {
+    fontSize: 18,
+    color: GC.primaryText,
   },
-  alertBtnDark: {
-    backgroundColor: "#415D43",
-    padding: 10,
-    borderRadius: 15,
-    width: "40%",
-    height: 50,
-    alignItems: "center",
-  },
-  alertBtnTextDark: {
-    color: "#fff",
-    fontSize: 13,
-  },
-  alertBtnOutline: {
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#415D43",
-    padding: 10,
-    borderRadius: 15,
-    width: "40%",
-    height: 50,
-    alignItems: "center",
-  },
-  alertBtnTextOutline: {
-    color: "#415D43",
-    fontSize: 13,
-  },
-
-  // Button outline
-  btnOutline: {
-    backgroundColor: "#fff",
-    borderWidth: 1,
-    borderColor: "#415D43",
-    padding: 15,
-    borderRadius: 15,
-    width: "80%",
-    height: 50,
-    alignItems: "center",
-  },
-  btnTextOutline: {
-    color: "#415D43",
-    fontSize: 13,
+  userPhone: {
+    fontSize: 14,
+    color: GC.primaryText,
   },
 });
 

@@ -1,0 +1,14 @@
+export const background = "#FFFFFF";
+export const secondaryBackground = "#F9F9F9";
+export const primaryText = "#2D2D2D";
+export const secondaryText = "#999999";
+export const primaryButton = "#0077C2";
+export const primaryButtonText = "#FFFFFF";
+export const secondaryButton = "#E1F4FC";
+export const secondaryButtonText = "#0077C2";
+export const border = "#D9D9D9";
+export const inputFieldBackground = "#FFFFFF";
+export const inputFieldText = "#2D2D2D";
+export const error = "#FF6961";
+export const success = "#4BB543";
+export const link = "#3AAFA9";
