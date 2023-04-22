@@ -1,7 +1,6 @@
 import React from "react";
 import {
   ScrollView,
-  StyleSheet,
   Text,
   TextInput,
   View,
@@ -10,20 +9,23 @@ import {
 
 import Checkbox from "expo-checkbox";
 
-import { auth, db } from "../../services/firebase";
+import { auth, db } from "../../../services/firebase";
+
+// CSS
+import global from "../../../../assets/styles/GlobalStyles";
 
 const RegisterScreen = () => {
-  // ? Data
+  //? Data
   const [name, setName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [email, setEmail] = React.useState("");
   const [address, setAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirmation, setPasswordConfirmation] = React.useState("");
-  // ? Unshown Data
-  const [roles, setRoles] = React.useState("none");
+  //? Unshown Data
+  const [member, setMember] = React.useState("none");
   const [verified, setVerified] = React.useState(false);
-  // ? Condition
+  //? Condition
   const [acceptedTerms, setAcceptedTerms] = React.useState(false);
 
   const handleRegister = () => {
@@ -36,15 +38,30 @@ const RegisterScreen = () => {
       passwordConfirmation === password
     ) {
       auth.createUserWithEmailAndPassword(email, password).then(() => {
-        db.collection("users").doc(auth.currentUser.uid).set({
-          uid: auth.currentUser.uid,
-          name,
-          phoneNumber,
-          email,
-          address,
-          roles,
-          verified,
-        });
+        db.collection("users-reseller")
+          .doc(auth.currentUser.uid)
+          .set({
+            uid: auth.currentUser.uid,
+            name,
+            phoneNumber,
+            email,
+            address,
+            verified,
+            member,
+            // order
+            orders: {
+              new: [],
+              in_process: [],
+              done: [],
+              canceled: [],
+            },
+            // invoice
+            invoices: {
+              to_pay: [],
+              confirmation_pending: [],
+              paid: [],
+            },
+          });
       });
     } else if (!name || !phoneNumber || !email || !password) {
       alert("Mohon isi semua kolom");
@@ -57,103 +74,82 @@ const RegisterScreen = () => {
 
   return (
     <ScrollView>
-      <View style={main.container}>
-        <View style={forms.formContainer}>
-          <Text style={forms.formTitle}>
-            Halo!{"\n"}Daftar untuk{"\n"}memulai
+      <View style={global.container}>
+        <View style={global.formWrapper}>
+          <Text style={global.formTitle}>
+            Halo, Isi kelengkapan data untuk menjadi Reseller Kokkei!
           </Text>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Nama Lengkap: *</Text>
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>Nama Lengkap: *</Text>
             <TextInput
               onChangeText={setName}
               value={name}
               placeholder="Masukkan nama lengkap"
-              style={forms.textInput}
+              style={global.formInput}
             />
           </View>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>No HP: *</Text>
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>No HP: *</Text>
             <TextInput
               onChangeText={setPhoneNumber}
               value={phoneNumber}
               placeholder="Masukkan no hp"
-              style={forms.textInput}
               inputMode="tel"
+              style={global.formInput}
             />
           </View>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Alamat: *</Text>
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>Alamat: *</Text>
             <TextInput
               onChangeText={setAddress}
               value={address}
               placeholder="Masukkan alamat"
-              style={forms.textInput}
+              style={global.formInput}
             />
           </View>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Email: *</Text>
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>Email: *</Text>
             <TextInput
               onChangeText={setEmail}
               value={email}
               placeholder="Masukkan email"
-              style={forms.textInput}
               inputMode="email"
+              style={global.formInput}
             />
           </View>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Password: *</Text>
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>Password: *</Text>
             <TextInput
               onChangeText={setPassword}
               value={password}
               placeholder="Masukkan password"
-              style={forms.textInput}
               secureTextEntry={true}
+              style={global.formInput}
             />
           </View>
-
-          <View style={forms.textInputContainer}>
-            <Text style={forms.textInputTitle}>Konfirmasi Password: *</Text>
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>Konfirmasi Password: *</Text>
             <TextInput
               onChangeText={setPasswordConfirmation}
               value={passwordConfirmation}
               placeholder="Konfirmasi password"
-              style={forms.textInput}
               secureTextEntry={true}
+              style={global.formInput}
             />
           </View>
 
-          <View>
-            <TouchableOpacity
-              style={forms.buttonContainer}
-              onPress={handleRegister}
-            >
-              <Text style={forms.buttonText}>Daftar</Text>
-            </TouchableOpacity>
+          <View style={global.checkboxWrapper}>
+            <Checkbox
+              value={acceptedTerms}
+              onValueChange={setAcceptedTerms}
+              style={global.checkbox}
+            />
+            <Text> Saya menyetujui syarat dan ketentuan </Text>
           </View>
 
-          <View>
-            <View style={forms.checkboxContainer}>
-              <Checkbox
-                value={acceptedTerms}
-                onValueChange={setAcceptedTerms}
-                style={forms.checkbox}
-              />
-              <Text style={forms.checkboxText}>
-                {" "}
-                Saya menyetujui syarat dan ketentuan{" "}
-              </Text>
-            </View>
-
-            <Text style={forms.information}>
-              Akun Anda akan diverifikasi oleh tim kami terlebih dahulu, untuk
-              dapat menggunakan fitur dalam aplikasi
-            </Text>
-          </View>
+          <TouchableOpacity onPress={handleRegister} style={global.button}>
+            <Text style={global.buttonText}>Daftar</Text>
+          </TouchableOpacity>
         </View>
       </View>
     </ScrollView>

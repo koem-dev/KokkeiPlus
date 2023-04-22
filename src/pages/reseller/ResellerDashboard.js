@@ -2,11 +2,12 @@ import React, { useEffect, useLayoutEffect, useState } from "react";
 import { StyleSheet, Text, View, BackHandler } from "react-native";
 import { StackActions, NavigationActions } from "react-navigation";
 
-import { auth, db } from "../services/firebase";
+import { auth, db } from "../../services/firebase";
 import { useNavigation } from "@react-navigation/native";
 
-import global from "../../assets/styles/GlobalStyles";
-import dashboard from "../../assets/styles/DashboardStyles";
+import global from "../../../assets/styles/GlobalStyles";
+import dashboard from "../../../assets/styles/DashboardStyles";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 function searchRoles() {
   switch (user?.roles) {
@@ -29,7 +30,7 @@ const HomeScreen = () => {
   const navigation = useNavigation();
 
   useEffect(() => {
-    db.collection("users")
+    db.collection("users-reseller")
       .doc(auth.currentUser.uid)
       .get()
       .then((user) => {
@@ -38,7 +39,7 @@ const HomeScreen = () => {
   }, []);
 
   return (
-    <View style={global.container}>
+    <SafeAreaView style={global.container}>
       <Text>
         Halo!{"\n"}
         {user?.name}
@@ -76,7 +77,7 @@ const HomeScreen = () => {
           )}
         </View>
       )}
-    </View>
+    </SafeAreaView>
   );
 };
 

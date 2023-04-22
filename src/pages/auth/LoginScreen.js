@@ -8,20 +8,17 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-
-import Checkbox from "expo-checkbox";
+import * as GC from "../../../assets/colors/GlobalColors";
 import { useNavigation } from "@react-navigation/native";
-
 import { auth, AuthProvider } from "../../services/firebase";
+import global from "../../../assets/styles/GlobalStyles";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { MaterialIcons } from "@expo/vector-icons";
 
 const LoginScreen = () => {
   const navigation = useNavigation();
-  const [loggedIn, setLoggedIn] = useState(false);
 
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [showPassword, setShowPassword] = useState(false);
-  const toggleShowPassword = () => setShowPassword(!showPassword);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(() => {
     AuthProvider.autoLogin().then((result) => {
@@ -39,22 +36,6 @@ const LoginScreen = () => {
     return unsubscribe;
   }, []);
 
-  const handleLogin = () => {
-    try {
-      AuthProvider.login(email, password).then((result) => {
-        if (result) {
-          directToHomeScreen();
-        }
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  };
-
-  const directToRegisterScreen = () => {
-    navigation.navigate("Register");
-  };
-
   const directToHomeScreen = () => {
     navigation.reset({
       index: 0,
@@ -62,43 +43,69 @@ const LoginScreen = () => {
     });
   };
 
+  //! Direct Handler
+  const directToResellerLoginScreen = () => {
+    navigation.navigate("ResellerLogin");
+  };
+
+  const directToEmployeeLoginScreen = () => {
+    navigation.navigate("EmployeeLogin");
+  };
+
   return (
-    <View>
-      <View>
-        <Text>Selamat datang di Kokkei Plus</Text>
+    <View style={global.container}>
+      <View style={global.boxWrapperContainer}>
+        <View style={global.boxWrapper}>
+          <Text style={global.boxWrapperTitle}>Halo, selamat datang!</Text>
+          <TouchableOpacity
+            style={[global.boxWrapperPressable, global.spacing]}
+            onPress={directToResellerLoginScreen}
+          >
+            <MaterialCommunityIcons
+              name="shopping"
+              size={24}
+              color={GC.secondaryIcon}
+            />
+            <View style={global.boxWrapperPressableDetail}>
+              <Text style={global.boxWrapperPressableTitle}>Reseller</Text>
+              <Text style={global.boxWrapperPressableDescription}>
+                Masuk sebagai reseller
+              </Text>
+            </View>
+          </TouchableOpacity>
 
-        <View>
-          <Text>Email: *</Text>
-          <TextInput
-            onChangeText={setEmail}
-            value={email}
-            placeholder="Masukkan email"
-            inputMode="email"
-          />
+          <View style={global.lineBreak} />
+
+          <TouchableOpacity
+            style={[global.boxWrapperPressable, global.spacing]}
+          >
+            <MaterialCommunityIcons
+              name="face-man-profile"
+              size={24}
+              color={GC.secondaryIcon}
+            />
+            <View style={global.boxWrapperPressableDetail}>
+              <Text style={global.boxWrapperPressableTitle}>Karyawan</Text>
+              <Text style={global.boxWrapperPressableDescription}>
+                Masuk sebagai karyawan
+              </Text>
+            </View>
+          </TouchableOpacity>
+
+          <View style={global.lineBreak} />
+
+          <TouchableOpacity
+            style={[global.boxWrapperPressable, global.spacing]}
+          >
+            <MaterialIcons name="lock" size={24} color="black" />
+            <View style={global.boxWrapperPressableDetail}>
+              <Text style={global.boxWrapperPressableTitle}>Khusus</Text>
+              <Text style={global.boxWrapperPressableDescription}>
+                Masuk menggunakan akun khusus
+              </Text>
+            </View>
+          </TouchableOpacity>
         </View>
-
-        <View>
-          <Text>Password: *</Text>
-          <TextInput
-            onChangeText={setPassword}
-            value={password}
-            placeholder="Masukkan password"
-            secureTextEntry={!showPassword}
-          />
-        </View>
-
-        <View>
-          <Checkbox value={showPassword} onValueChange={toggleShowPassword} />
-          <Text>Tampilkan password</Text>
-        </View>
-
-        <TouchableOpacity onPress={handleLogin}>
-          <Text>Login</Text>
-        </TouchableOpacity>
-
-        <TouchableOpacity onPress={directToRegisterScreen}>
-          <Text>Belum punya akun?</Text>
-        </TouchableOpacity>
       </View>
     </View>
   );

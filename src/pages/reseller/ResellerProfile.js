@@ -8,6 +8,7 @@ import { db, auth } from "../../services/firebase";
 
 import global from "../../../assets/styles/GlobalStyles";
 import ConfirmModal from "../../components/modals/ConfirmModal";
+import { SafeAreaView } from "react-native-safe-area-context";
 
 const Profile = () => {
   const [modalVisible, setModalVisible] = useState(false);
@@ -50,7 +51,7 @@ const Profile = () => {
   }, []);
 
   return (
-    <View style={global.container}>
+    <SafeAreaView style={global.container}>
       <View style={global.boxWrapperContainer}>
         <View style={global.userWrapper}>
           <Text style={global.userTitle}>Halo.</Text>
@@ -133,7 +134,7 @@ const Profile = () => {
           />
         </View>
       </View>
-    </View>
+    </SafeAreaView>
   );
 };
 

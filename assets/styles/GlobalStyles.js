@@ -9,7 +9,8 @@ const global = StyleSheet.create({
     alignItems: "center",
   },
 
-  //! Box Wrapper Container
+  //! Box Wrapper
+  // Box Wrapper Container
   boxWrapperContainer: {
     width: "100%",
     marginTop: 10,
@@ -86,6 +87,104 @@ const global = StyleSheet.create({
   userPhone: {
     fontSize: 14,
     color: GC.primaryText,
+  },
+
+  //! Form
+  formWrapper: {
+    width: "100%",
+    padding: 20,
+  },
+  inputWrapper: {
+    width: "100%",
+    marginBottom: 10,
+  },
+  formTitle: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: GC.primaryText,
+    marginBottom: 10,
+  },
+  formInput: {
+    backgroundColor: GC.background,
+    width: "100%",
+    height: 50,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    color: GC.primaryText,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: GC.border,
+  },
+  formInputError: {
+    backgroundColor: GC.background,
+    width: "100%",
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    color: GC.primaryText,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: GC.error,
+  },
+  formInputErrorText: {
+    fontSize: 12,
+    color: GC.error,
+    marginBottom: 10,
+  },
+  formInputLabel: {
+    fontSize: 12,
+    color: GC.primaryText,
+    marginBottom: 10,
+  },
+
+  //! Button
+  buttonWrapper: {
+    width: "100%",
+    padding: 20,
+  },
+  button: {
+    backgroundColor: GC.primaryButton,
+    width: "100%",
+    height: 50,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: GC.primaryButtonText,
+  },
+  buttonSecondary: {
+    backgroundColor: GC.secondaryButton,
+    width: "100%",
+    height: 50,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: GC.inputFieldBorder,
+  },
+  buttonSecondaryText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: GC.secondaryButtonText,
+  },
+
+  //! Checkbox
+  checkboxWrapper: {
+    width: "100%",
+    marginBottom: 20,
+    flexDirection: "row",
+  },
+  checkbox: {
+    marginBottom: 10,
+    marginRight: 10,
   },
 });
 

@@ -3,7 +3,7 @@ import React, { useCallback, useEffect } from "react";
 import { NavigationContainer } from "@react-navigation/native";
 import { StatusBar } from "expo-status-bar";
 
-import MainStack from "./navigation/Navigation";
+import MainStack from "./Navigation";
 
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
