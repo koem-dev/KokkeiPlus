@@ -44,8 +44,8 @@ const ResellerLoginScreen = () => {
     }
   };
 
-  const directToResellerRegisterScreen = () => {
-    navigation.navigate("ResellerRegister");
+  const directToRegisterScreen = () => {
+    navigation.navigate("RegisterScreen");
   };
 
   const directToHomeScreen = () => {
@@ -97,7 +97,7 @@ const ResellerLoginScreen = () => {
         </TouchableOpacity>
 
         <TouchableOpacity
-          onPress={directToResellerRegisterScreen}
+          onPress={directToRegisterScreen}
           style={global.buttonSecondary}
         >
           <Text style={global.buttonSecondaryText}>Belum punya akun?</Text>

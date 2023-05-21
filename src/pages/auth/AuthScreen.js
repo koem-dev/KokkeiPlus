@@ -1,13 +1,5 @@
 import React, { useEffect, useState } from "react";
-import {
-  Pressable,
-  ScrollView,
-  StyleSheet,
-  Text,
-  TextInput,
-  TouchableOpacity,
-  View,
-} from "react-native";
+import { Text, TouchableOpacity, View } from "react-native";
 import * as GC from "../../../assets/colors/GlobalColors";
 import { useNavigation } from "@react-navigation/native";
 import { auth, AuthProvider } from "../../services/firebase";
@@ -44,12 +36,8 @@ const LoginScreen = () => {
   };
 
   //! Direct Handler
-  const directToResellerLoginScreen = () => {
-    navigation.navigate("ResellerLogin");
-  };
-
-  const directToEmployeeLoginScreen = () => {
-    navigation.navigate("EmployeeLogin");
+  const directToLoginScreen = () => {
+    navigation.navigate("LoginScreen");
   };
 
   return (
@@ -59,7 +47,7 @@ const LoginScreen = () => {
           <Text style={global.boxWrapperTitle}>Halo, selamat datang!</Text>
           <TouchableOpacity
             style={[global.boxWrapperPressable, global.spacing]}
-            onPress={directToResellerLoginScreen}
+            onPress={directToLoginScreen}
           >
             <MaterialCommunityIcons
               name="shopping"
@@ -67,27 +55,11 @@ const LoginScreen = () => {
               color={GC.secondaryIcon}
             />
             <View style={global.boxWrapperPressableDetail}>
-              <Text style={global.boxWrapperPressableTitle}>Reseller</Text>
-              <Text style={global.boxWrapperPressableDescription}>
-                Masuk sebagai reseller
+              <Text style={global.boxWrapperPressableTitle}>
+                Masuk ke Kokkei Plus
               </Text>
-            </View>
-          </TouchableOpacity>
-
-          <View style={global.lineBreak} />
-
-          <TouchableOpacity
-            style={[global.boxWrapperPressable, global.spacing]}
-          >
-            <MaterialCommunityIcons
-              name="face-man-profile"
-              size={24}
-              color={GC.secondaryIcon}
-            />
-            <View style={global.boxWrapperPressableDetail}>
-              <Text style={global.boxWrapperPressableTitle}>Karyawan</Text>
               <Text style={global.boxWrapperPressableDescription}>
-                Masuk sebagai karyawan
+                Masuk menggunakan akun Kokkei Plus
               </Text>
             </View>
           </TouchableOpacity>

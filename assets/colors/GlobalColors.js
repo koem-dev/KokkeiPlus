@@ -1,4 +1,4 @@
-export const background = "#FFFFFF";
+export const background = "#FDFDFD";
 export const secondaryBackground = "#F9F9F9";
 export const primaryText = "#2D2D2D";
 export const secondaryText = "#999999";

@@ -1,22 +1,27 @@
 import React from "react";
 
+import { Easing } from "react-native";
+
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import {
+  createStackNavigator,
+  TransitionPreset,
+  CardStyleInterpolators,
+} from "@react-navigation/stack";
 
-import LoginScreen from "./src/pages/auth/LoginScreen";
+import AuthScreen from "./src/pages/auth/AuthScreen";
 
-import ResellerDashboard from "./src/pages/reseller/ResellerDashboard";
-import ResellerProfile from "./src/pages/reseller/ResellerProfile";
+import ResellerDashboard from "./src/pages/user/ResellerDashboard";
+import ResellerProfile from "./src/pages/user/ResellerProfile";
 
-import { MaterialIcons } from "@expo/vector-icons";
-import EmployeeLoginScreen from "./src/pages/auth/login/EmployeeLoginScreen";
-import ResellerLoginScreen from "./src/pages/auth/login/ResellerLoginScreen";
+import LoginScreen from "./src/pages/auth/login/LoginScreen";
 
-import ResellerRegisterScreen from "./src/pages/auth/register/ResellerRegisterScreen";
+import RegisterScreen from "./src/pages/auth/register/RegisterScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
 const Tab = createBottomTabNavigator();
-const Stack = createNativeStackNavigator();
+const Stack = createStackNavigator();
 
 function MainStack() {
   return (
@@ -31,13 +36,28 @@ function MainStack() {
 
 function AuthStack() {
   return (
-    <Stack.Navigator>
-      <Stack.Screen name="Login" component={LoginScreen} />
-      <Stack.Screen name="ResellerLogin" component={ResellerLoginScreen} />
-      <Stack.Screen name="EmployeeLogin" component={EmployeeLoginScreen} />
+    <Stack.Navigator
+      screenOptions={{
+        gestureEnabled: true,
+        gestureDirection: "horizontal",
+        animationEnabled: false,
+        headerMode: "float",
+      }}
+    >
       <Stack.Screen
-        name="ResellerRegister"
-        component={ResellerRegisterScreen}
+        name="Auth"
+        component={AuthScreen}
+        options={{ headerTitle: "Dashboard" }}
+      />
+      <Stack.Screen
+        name="LoginScreen"
+        component={LoginScreen}
+        options={{ headerTitle: "Login" }}
+      />
+      <Stack.Screen
+        name="RegisterScreen"
+        component={RegisterScreen}
+        options={{ headerTitle: "Daftar" }}
       />
     </Stack.Navigator>
   );
