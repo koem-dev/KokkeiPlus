@@ -8,6 +8,7 @@ import { useNavigation } from "@react-navigation/native";
 import global from "../../../assets/styles/GlobalStyles";
 import dashboard from "../../../assets/styles/DashboardStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
+import SkeletonLoader from "../../features/SkeletonLoader";
 
 function searchRoles() {
   switch (user?.roles) {
@@ -26,57 +27,52 @@ function searchRoles() {
 
 const HomeScreen = () => {
   const [user, setUser] = useState(null); // ? This user
+  const [loading, setLoading] = useState(true);
 
   const navigation = useNavigation();
 
   useEffect(() => {
-    db.collection("users-reseller")
+    setLoading(true);
+    db.collection("users-res")
       .doc(auth.currentUser.uid)
       .get()
       .then((user) => {
         setUser(user.data());
+        setLoading(false);
       });
   }, []);
 
   return (
     <SafeAreaView style={global.container}>
-      <Text>
-        Halo!{"\n"}
-        {user?.name}
-      </Text>
+      <View style={global.boxWrapperContainer}>
+        <View style={global.boxWrapper}>
+          <Text style={global.boxWrapperPageTitle}>Dashboard</Text>
+        </View>
 
-      {user?.verified === false || user?.roles === "none" ? (
-        <View>
-          <Text>
-            Tim kami sedang melakukan pengecekan terhadap akun Anda, dan akan
-            melakukan verifikasi secepatnya dalam waktu paling lama tiga jam
-            kerja.
-          </Text>
+        <View style={global.boxWrapper}>
+          <View style={global.aiWrapper}>
+            <View style={global.aiBarWrapper}>
+              <Text style={global.aiBarText}>koem</Text>
+            </View>
+            <View style={global.aiBubbleWrapper}>
+              <Text style={global.aiBubbleText}>
+                Halo {user?.name}, Semangat bekerja hari ini!
+              </Text>
+            </View>
+          </View>
         </View>
-      ) : (
-        <View>
-          {user?.roles === "reseller" ? (
-            <View>
-              <Text>Reseller Dashboard</Text>
-              <ResellerDashboard />
-            </View>
-          ) : user?.roles === "sales" ? (
-            <View>
-              <Text>Sales Dashboard</Text>
-            </View>
-          ) : user?.roles === "assembler" ? (
-            <View>
-              <Text>Assembler Dashboard</Text>
-            </View>
-          ) : user?.roles === "operator" ? (
-            <View>
-              <Text>Operator Dashboard</Text>
-            </View>
-          ) : (
-            <Text>Loading</Text>
-          )}
+
+        <View style={global.boxWrapper}>
+          <Text style={global.boxWrapperTitle}>Pintasan Kerja Cepat</Text>
+          <View style={global.boxWrapperContent}>
+            {user?.roles != "none" ? (
+              <Text>Pintasan (WIP)</Text>
+            ) : (
+              <Text>Maaf tidak ada pintasan yang tersedia</Text>
+            )}
+          </View>
         </View>
-      )}
+      </View>
     </SafeAreaView>
   );
 };

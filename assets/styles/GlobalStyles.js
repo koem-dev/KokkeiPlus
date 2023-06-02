@@ -7,6 +7,8 @@ const global = StyleSheet.create({
     flex: 1,
     backgroundColor: GC.background,
     alignItems: "center",
+    padding: 10,
+    width: "100%",
   },
 
   //! Box Wrapper
@@ -17,8 +19,6 @@ const global = StyleSheet.create({
   },
   // Box Wrapper
   boxWrapper: {
-    backgroundColor: GC.background,
-    width: "100%",
     padding: 10,
     marginBottom: 10,
   },
@@ -26,8 +26,12 @@ const global = StyleSheet.create({
   boxWrapperTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: GC.primaryText,
-    padding: 10,
+    color: GC.blackText,
+  },
+  boxWrapperPageTitle: {
+    fontSize: 25,
+    fontWeight: "bold",
+    color: GC.blackText,
   },
   // Box Wrapper Pressable
   boxWrapperPressable: {
@@ -35,58 +39,70 @@ const global = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     flexDirection: "row",
-    marginLeft: 18,
   },
   boxWrapperPressableDetail: {
-    marginLeft: 10,
+    marginLeft: 15,
     flexDirection: "column",
   },
   boxWrapperPressableTitle: {
     fontSize: 14,
-    fontWeight: "bold",
-    color: GC.primaryText,
+    color: GC.blackText,
   },
   boxWrapperPressableDescription: {
     fontSize: 12,
     color: GC.secondaryText,
   },
   boxWrapperPressableVector: {
-    color: GC.primaryText,
+    color: GC.blackText,
   },
-
-  //! Line Break
-  lineBreak: {
-    width: "90%",
-    height: 1,
-    backgroundColor: GC.border,
-    marginTop: 10,
-    marginBottom: 10,
-    alignSelf: "center",
+  boxWrapperContent: {
+    width: "100%",
+  },
+  boxWrapperContentTitle: {
+    fontSize: 14,
+    fontWeight: "bold",
+    color: GC.blackText,
   },
 
   //! Spacing
   spacing: {
-    margin: 10,
+    marginBottom: 20,
   },
 
   //! User
   userWrapper: {
-    padding: 20,
-    marginBottom: 30,
-  },
-  userTitle: {
-    fontSize: 30,
-    fontWeight: "bold",
-    color: GC.primaryText,
+    backgroundColor: GC.background,
+    width: "100%",
     marginBottom: 10,
   },
   userName: {
-    fontSize: 18,
-    color: GC.primaryText,
+    fontSize: 16,
+    color: GC.blackText,
   },
   userPhone: {
     fontSize: 14,
-    color: GC.primaryText,
+    color: GC.secondaryText,
+  },
+  userProfpic: {
+    width: 70,
+    height: 70,
+    borderRadius: 50,
+    backgroundColor: GC.border,
+    marginRight: 10,
+  },
+  userRolesWrapper: {
+    backgroundColor: GC.roles,
+    padding: 2,
+    borderRadius: 50,
+    marginTop: 5,
+    marginBottom: 5,
+    width: 100,
+    height: 25,
+    alignItems: "center",
+  },
+  userRolesText: {
+    fontSize: 14,
+    color: GC.whiteText,
   },
 
   //! Form
@@ -101,7 +117,7 @@ const global = StyleSheet.create({
   formTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    color: GC.primaryText,
+    color: GC.blackText,
     marginBottom: 10,
   },
   formInput: {
@@ -111,7 +127,7 @@ const global = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 10,
-    color: GC.primaryText,
+    color: GC.blackText,
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: GC.border,
@@ -122,7 +138,7 @@ const global = StyleSheet.create({
     padding: 10,
     marginBottom: 10,
     borderRadius: 10,
-    color: GC.primaryText,
+    color: GC.blackText,
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: GC.error,
@@ -134,7 +150,7 @@ const global = StyleSheet.create({
   },
   formInputLabel: {
     fontSize: 12,
-    color: GC.primaryText,
+    color: GC.blackText,
     marginBottom: 10,
   },
 
@@ -185,6 +201,81 @@ const global = StyleSheet.create({
   checkbox: {
     marginBottom: 10,
     marginRight: 10,
+  },
+
+  //Slicer
+  wh: {
+    flexDirection: "row",
+    alignItems: "center",
+  },
+  vh: {
+    flexDirection: "column",
+    alignItems: "flex-start",
+  },
+  whSpace: {
+    marginLeft: 10,
+  },
+  vhSpace: {
+    marginTop: 25,
+  },
+  vhSpaceSmall: {
+    marginTop: 5,
+  },
+  w25: {
+    width: "25%",
+  },
+  w50: {
+    width: "50%",
+  },
+  w75: {
+    width: "75%",
+  },
+  w35: {
+    width: "35%",
+  },
+  w65: {
+    width: "65%",
+  },
+
+  // AI
+  aiWrapper: {
+    width: "100%",
+    alignItems: "flex-start",
+  },
+  aiBarWrapper: {
+    backgroundColor: GC.roles,
+    borderTopRightRadius: 15,
+    borderBottomRightRadius: 15,
+    borderTopLeftRadius: 15,
+    marginTop: 5,
+    marginBottom: 5,
+    width: 80,
+    height: 30,
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+  aiBarText: {
+    fontSize: 14,
+    color: GC.whiteText,
+    marginLeft: 20,
+  },
+  aiBarBadge: {
+    fontSize: 10,
+  },
+  aiBubbleWrapper: {
+    backgroundColor: GC.secondaryBackground,
+    padding: 10,
+    borderRadius: 5,
+    marginTop: 5,
+    marginBottom: 5,
+    width: "100%",
+    alignItems: "flex-start",
+    justifyContent: "center",
+  },
+  aiBubbleText: {
+    fontSize: 14,
+    color: GC.blackText,
+    marginLeft: 10,
   },
 });
 

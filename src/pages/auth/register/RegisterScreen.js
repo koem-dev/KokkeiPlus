@@ -23,7 +23,7 @@ const RegisterScreen = () => {
   const [password, setPassword] = React.useState("");
   const [passwordConfirmation, setPasswordConfirmation] = React.useState("");
   //? Unshown Data
-  const [member, setMember] = React.useState("none");
+  const [roles, setRoles] = React.useState("reseller");
   const [verified, setVerified] = React.useState(false);
   //? Condition
   const [acceptedTerms, setAcceptedTerms] = React.useState(false);
@@ -37,32 +37,22 @@ const RegisterScreen = () => {
       password &&
       passwordConfirmation === password
     ) {
-      auth.createUserWithEmailAndPassword(email, password).then(() => {
-        db.collection("users-reseller")
-          .doc(auth.currentUser.uid)
-          .set({
+      auth
+        .createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          db.collection("users-res").doc(auth.currentUser.uid).set({
             uid: auth.currentUser.uid,
             name,
             phoneNumber,
             email,
             address,
             verified,
-            member,
-            // order
-            orders: {
-              new: [],
-              in_process: [],
-              done: [],
-              canceled: [],
-            },
-            // invoice
-            invoices: {
-              to_pay: [],
-              confirmation_pending: [],
-              paid: [],
-            },
+            roles,
           });
-      });
+        })
+        .catch((error) => {
+          alert(error.message);
+        });
     } else if (!name || !phoneNumber || !email || !password) {
       alert("Mohon isi semua kolom");
     } else if (passwordConfirmation !== password) {

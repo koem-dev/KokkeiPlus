@@ -1,6 +1,7 @@
 import React from "react";
 
 import { Easing } from "react-native";
+import { MaterialIcons } from "@expo/vector-icons";
 
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
@@ -12,8 +13,8 @@ import {
 
 import AuthScreen from "./src/pages/auth/AuthScreen";
 
-import ResellerDashboard from "./src/pages/user/ResellerDashboard";
-import ResellerProfile from "./src/pages/user/ResellerProfile";
+import ResellerDashboard from "./src/pages/user/UserDashboard";
+import ResellerProfile from "./src/pages/user/UserProfile";
 
 import LoginScreen from "./src/pages/auth/login/LoginScreen";
 
