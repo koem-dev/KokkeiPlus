@@ -5,6 +5,7 @@ import {
   TextInput,
   View,
   TouchableOpacity,
+  Pressable,
 } from "react-native";
 
 import Checkbox from "expo-checkbox";
@@ -13,6 +14,7 @@ import { auth, db } from "../../../services/firebase";
 
 // CSS
 import global from "../../../../assets/styles/GlobalStyles";
+import Dropdown from "../../../components/Dropdown";
 
 const RegisterScreen = () => {
   //? Data
@@ -22,11 +24,22 @@ const RegisterScreen = () => {
   const [address, setAddress] = React.useState("");
   const [password, setPassword] = React.useState("");
   const [passwordConfirmation, setPasswordConfirmation] = React.useState("");
-  //? Unshown Data
-  const [roles, setRoles] = React.useState("reseller");
-  const [verified, setVerified] = React.useState(false);
+  const [gender, setGender] = React.useState("");
+  const [showOptions, setShowOptions] = React.useState(false);
   //? Condition
   const [acceptedTerms, setAcceptedTerms] = React.useState(false);
+
+  const handleGenderOptionPress = (option) => {
+    setGender(option);
+    setShowOptions(false);
+  };
+  const handleGenderTextInputChange = (value) => {
+    setGender(value);
+  };
+  const toggleOptions = () => {
+    setShowOptions(!showOptions);
+  };
+  const genderOptions = ["Laki-Laki", "Perempuan"];
 
   const handleRegister = () => {
     if (
@@ -40,15 +53,24 @@ const RegisterScreen = () => {
       auth
         .createUserWithEmailAndPassword(email, password)
         .then(() => {
-          db.collection("users-res").doc(auth.currentUser.uid).set({
-            uid: auth.currentUser.uid,
-            name,
-            phoneNumber,
-            email,
-            address,
-            verified,
-            roles,
-          });
+          db.collection("users-res")
+            .doc(auth.currentUser.uid)
+            .set({
+              uid: auth.currentUser.uid,
+              detail: {
+                name,
+                phoneNumber,
+                email,
+                address,
+                gender,
+              },
+              roles: {
+                verified: false,
+                reseller: false,
+                employee: false,
+                admin: false,
+              },
+            });
         })
         .catch((error) => {
           alert(error.message);
@@ -78,6 +100,27 @@ const RegisterScreen = () => {
               style={global.formInput}
             />
           </View>
+
+          <View style={global.inputWrapper}>
+            <Text style={global.formInputLabel}>Jenis Kelamin: *</Text>
+            <Pressable onPress={toggleOptions}>
+              <TextInput
+                onChangeText={setGender}
+                value={gender}
+                placeholder="Pilih jenis kelamin"
+                style={global.formInput}
+                editable={false}
+              />
+            </Pressable>
+            <Dropdown
+              visible={showOptions}
+              options={genderOptions}
+              selectedOption={gender}
+              handleOptionPress={handleGenderOptionPress}
+              toggleOptions={toggleOptions}
+            />
+          </View>
+
           <View style={global.inputWrapper}>
             <Text style={global.formInputLabel}>No HP: *</Text>
             <TextInput
@@ -88,6 +131,7 @@ const RegisterScreen = () => {
               style={global.formInput}
             />
           </View>
+
           <View style={global.inputWrapper}>
             <Text style={global.formInputLabel}>Alamat: *</Text>
             <TextInput
@@ -97,6 +141,7 @@ const RegisterScreen = () => {
               style={global.formInput}
             />
           </View>
+
           <View style={global.inputWrapper}>
             <Text style={global.formInputLabel}>Email: *</Text>
             <TextInput
@@ -107,6 +152,7 @@ const RegisterScreen = () => {
               style={global.formInput}
             />
           </View>
+
           <View style={global.inputWrapper}>
             <Text style={global.formInputLabel}>Password: *</Text>
             <TextInput
@@ -117,6 +163,7 @@ const RegisterScreen = () => {
               style={global.formInput}
             />
           </View>
+
           <View style={global.inputWrapper}>
             <Text style={global.formInputLabel}>Konfirmasi Password: *</Text>
             <TextInput

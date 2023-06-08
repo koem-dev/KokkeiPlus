@@ -3,9 +3,8 @@ import { View, Text, Image } from "react-native";
 import { TouchableOpacity } from "react-native";
 import { AuthProvider } from "../../services/firebase";
 import { useNavigation } from "@react-navigation/native";
-import { Octicons } from "@expo/vector-icons";
+import { FontAwesome } from "@expo/vector-icons";
 import { db, auth } from "../../services/firebase";
-
 import global from "../../../assets/styles/GlobalStyles";
 import ConfirmModal from "../../components/modals/ConfirmModal";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -72,7 +71,7 @@ const Profile = () => {
                   <Image style={global.userProfpic} />
                   <View style={[global.vh, global.whSpace]}>
                     <Text style={[global.userName, global.vhSpaceSmall]}>
-                      {user?.name}
+                      {user?.detail.name}
                     </Text>
                     <View
                       style={[
@@ -81,17 +80,23 @@ const Profile = () => {
                         global.vhSpaceSmall,
                       ]}
                     >
-                      <Text style={global.userPhone}>{user?.phoneNumber}</Text>
+                      <Text style={global.userPhone}>
+                        {user?.detail.phoneNumber}
+                      </Text>
                     </View>
-                    <View
-                      style={[
-                        global.userRolesWrapper,
-                        global.w50,
-                        global.vhSpaceSmall,
-                      ]}
-                    >
-                      <Text style={global.userRolesText}>{user?.roles}</Text>
-                    </View>
+                    {user?.roles.verified === true ? (
+                      <View
+                        style={[
+                          global.userRolesWrapper,
+                          global.w50,
+                          global.vhSpaceSmall,
+                        ]}
+                      >
+                        <Text style={global.userRolesText}>Terferivikasi</Text>
+                      </View>
+                    ) : (
+                      <View></View>
+                    )}
                   </View>
                 </View>
               </>
@@ -104,8 +109,8 @@ const Profile = () => {
           <TouchableOpacity
             style={[global.boxWrapperPressable, global.vhSpace]}
           >
-            <Octicons
-              name="person"
+            <FontAwesome
+              name="tag"
               size={24}
               color="black"
               style={global.boxWrapperPressableVector}
@@ -121,7 +126,7 @@ const Profile = () => {
           <TouchableOpacity
             style={[global.boxWrapperPressable, global.vhSpace]}
           >
-            <Octicons
+            <FontAwesome
               name="lock"
               size={24}
               color="black"
@@ -142,9 +147,10 @@ const Profile = () => {
             onPress={showModal}
             style={[global.boxWrapperPressable, global.vhSpace]}
           >
-            <Octicons
-              name="link-external"
-              size={25}
+            <FontAwesome
+              name="sign-out"
+              size={24}
+              color="black"
               style={global.boxWrapperPressableVector}
             />
             <View style={global.boxWrapperPressableDetail}>

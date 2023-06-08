@@ -1,8 +1,5 @@
 import React from "react";
-
-import { Easing } from "react-native";
-import { MaterialIcons } from "@expo/vector-icons";
-
+import { FontAwesome } from "@expo/vector-icons";
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import {
@@ -10,14 +7,10 @@ import {
   TransitionPreset,
   CardStyleInterpolators,
 } from "@react-navigation/stack";
-
 import AuthScreen from "./src/pages/auth/AuthScreen";
-
 import ResellerDashboard from "./src/pages/user/UserDashboard";
 import ResellerProfile from "./src/pages/user/UserProfile";
-
 import LoginScreen from "./src/pages/auth/login/LoginScreen";
-
 import RegisterScreen from "./src/pages/auth/register/RegisterScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 
@@ -70,13 +63,13 @@ function HomeTab() {
       screenOptions={{
         tabBarLabelPosition: "below-icon",
         tabBarStyle: {
-          height: 80,
+          height: 60,
           backgroundColor: "#fff",
         },
         tabBarLabelStyle: {
-          fontSize: 12,
-          marginTop: -20,
-          marginBottom: 15,
+          marginTop: -10,
+          padding: 0,
+          marginBottom: 10,
         },
         headerShown: false,
       }}
@@ -84,7 +77,7 @@ function HomeTab() {
       <Tab.Screen
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="home" color={color} size={30} />
+            <FontAwesome name="inbox" color={color} size={20} />
           ),
         }}
         name="Dashboard"
@@ -93,10 +86,28 @@ function HomeTab() {
       <Tab.Screen
         options={{
           tabBarIcon: ({ color }) => (
-            <MaterialIcons name="account-circle" color={color} size={30} />
+            <FontAwesome name="bookmark" color={color} size={20} />
           ),
         }}
-        name="Profile"
+        name="Kerja"
+        component={ResellerDashboard}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="envelope" color={color} size={20} />
+          ),
+        }}
+        name="Notifikasi"
+        component={ResellerDashboard}
+      />
+      <Tab.Screen
+        options={{
+          tabBarIcon: ({ color }) => (
+            <FontAwesome name="user" color={color} size={20} />
+          ),
+        }}
+        name="Akun"
         component={ResellerProfile}
       />
     </Tab.Navigator>

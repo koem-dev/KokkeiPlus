@@ -7,7 +7,7 @@ const global = StyleSheet.create({
     flex: 1,
     backgroundColor: GC.background,
     alignItems: "center",
-    padding: 10,
+    padding: 15,
     width: "100%",
   },
 
@@ -53,7 +53,7 @@ const global = StyleSheet.create({
     color: GC.secondaryText,
   },
   boxWrapperPressableVector: {
-    color: GC.blackText,
+    width: 20,
   },
   boxWrapperContent: {
     width: "100%",
@@ -96,12 +96,13 @@ const global = StyleSheet.create({
     borderRadius: 50,
     marginTop: 5,
     marginBottom: 5,
-    width: 100,
     height: 25,
+    width: 100,
     alignItems: "center",
+    justifyContent: "center",
   },
   userRolesText: {
-    fontSize: 14,
+    fontSize: 12,
     color: GC.whiteText,
   },
 
@@ -235,47 +236,6 @@ const global = StyleSheet.create({
   },
   w65: {
     width: "65%",
-  },
-
-  // AI
-  aiWrapper: {
-    width: "100%",
-    alignItems: "flex-start",
-  },
-  aiBarWrapper: {
-    backgroundColor: GC.roles,
-    borderTopRightRadius: 15,
-    borderBottomRightRadius: 15,
-    borderTopLeftRadius: 15,
-    marginTop: 5,
-    marginBottom: 5,
-    width: 80,
-    height: 30,
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
-  aiBarText: {
-    fontSize: 14,
-    color: GC.whiteText,
-    marginLeft: 20,
-  },
-  aiBarBadge: {
-    fontSize: 10,
-  },
-  aiBubbleWrapper: {
-    backgroundColor: GC.secondaryBackground,
-    padding: 10,
-    borderRadius: 5,
-    marginTop: 5,
-    marginBottom: 5,
-    width: "100%",
-    alignItems: "flex-start",
-    justifyContent: "center",
-  },
-  aiBubbleText: {
-    fontSize: 14,
-    color: GC.blackText,
-    marginLeft: 10,
   },
 });
 

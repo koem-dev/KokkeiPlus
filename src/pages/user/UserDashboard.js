@@ -10,26 +10,10 @@ import dashboard from "../../../assets/styles/DashboardStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SkeletonLoader from "../../features/SkeletonLoader";
 
-function searchRoles() {
-  switch (user?.roles) {
-    case "reseller":
-      return "reseller";
-    case "sales":
-      return "sales";
-    case "assembler":
-      return "assembler";
-    case "operator":
-      return "operator";
-    default:
-      return "none";
-  }
-}
-
 const HomeScreen = () => {
   const [user, setUser] = useState(null); // ? This user
   const [loading, setLoading] = useState(true);
-
-  const navigation = useNavigation();
+  const [isDataFetched, setIsDataFetched] = useState(false);
 
   useEffect(() => {
     setLoading(true);
@@ -39,8 +23,23 @@ const HomeScreen = () => {
       .then((user) => {
         setUser(user.data());
         setLoading(false);
+        setIsDataFetched(true);
       });
   }, []);
+
+  const searchRoles = () => {
+    if (user?.roles === "reseller") {
+      return "reseller";
+    } else if (user?.roles === "admin") {
+      return "admin";
+    } else if (user?.roles === "employee") {
+      return "employee";
+    } else {
+      return "none";
+    }
+  };
+
+  const navigation = useNavigation();
 
   return (
     <SafeAreaView style={global.container}>
@@ -50,23 +49,28 @@ const HomeScreen = () => {
         </View>
 
         <View style={global.boxWrapper}>
-          <View style={global.aiWrapper}>
-            <View style={global.aiBarWrapper}>
-              <Text style={global.aiBarText}>koem</Text>
-            </View>
-            <View style={global.aiBubbleWrapper}>
-              <Text style={global.aiBubbleText}>
-                Halo {user?.name}, Semangat bekerja hari ini!
-              </Text>
-            </View>
-          </View>
-        </View>
-
-        <View style={global.boxWrapper}>
           <Text style={global.boxWrapperTitle}>Pintasan Kerja Cepat</Text>
           <View style={global.boxWrapperContent}>
             {user?.roles != "none" ? (
-              <Text>Pintasan (WIP)</Text>
+              <>
+                {searchRoles() === "reseller" && (
+                  <View>
+                    <Text>Reseller Component</Text>
+                  </View>
+                )}
+
+                {searchRoles() === "employee" && (
+                  <View>
+                    <Text>Reseller Component</Text>
+                  </View>
+                )}
+
+                {searchRoles() === "admin" && (
+                  <View>
+                    <Text>Reseller Component</Text>
+                  </View>
+                )}
+              </>
             ) : (
               <Text>Maaf tidak ada pintasan yang tersedia</Text>
             )}
