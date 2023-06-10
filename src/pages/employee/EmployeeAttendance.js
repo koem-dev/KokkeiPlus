@@ -9,6 +9,8 @@ import { db, auth } from "../../services/firebase";
 import firebase from "firebase/compat";
 import { FlatList } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
+import SkeletonLoader from "../../features/SkeletonLoader";
+import moment from "moment/moment";
 
 const EmployeeAttendance = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -22,8 +24,29 @@ const EmployeeAttendance = () => {
   const [attendanceHistory, setAttendanceHistory] = useState([]);
   const [attendanceType, setAttendanceType] = useState("");
   const [refresh, setRefresh] = useState(false);
+  const [loading, setLoading] = useState(true);
   const userId = auth.currentUser.uid;
   const userRef = db.collection("users-res").doc(userId);
+
+  const groupedAttendanceHistory = attendanceHistory.reduce(
+    (acc, curr) => {
+      const date = moment(curr.date, "DD/MM/YYYY");
+      const diffInDays = moment().diff(date, "days");
+
+      if (diffInDays === 0) {
+        acc.today.push(curr);
+      } else if (diffInDays === 1) {
+        acc.yesterday.push(curr);
+      } else if (diffInDays <= 7) {
+        acc.lastWeek.push(curr);
+      } else {
+        acc.older.push(curr);
+      }
+
+      return acc;
+    },
+    { today: [], yesterday: [], lastWeek: [], older: [] }
+  );
 
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
@@ -42,6 +65,7 @@ const EmployeeAttendance = () => {
         const userData = doc.data();
         if (userData && userData.attendance) {
           setAttendanceHistory(userData.attendance);
+          setLoading(false);
         } else {
           setAttendanceHistory([]);
         }
@@ -119,7 +143,9 @@ const EmployeeAttendance = () => {
 
   const renderItem = ({ item }) => (
     <View style={global.itemWrapper}>
-      <Text>Tanggal: {item.date}</Text>
+      <Text style={global.itemDate}>
+        {item.date} ({moment(item.date, "DD/MM/YYYY").fromNow()})
+      </Text>
       <Text>Waktu: {item.time}</Text>
       <Text>Lokasi: {item.location}</Text>
       <Text>Jenis: {item.location === "in" ? "Kedatangan" : "Kepulangan"}</Text>
@@ -206,12 +232,65 @@ const EmployeeAttendance = () => {
               Riwayat Kehadiran
             </Text>
           </View>
-          <FlatList
-            data={attendanceHistory}
-            renderItem={renderItem}
-            keyExtractor={(item, index) => item.id + refresh.toString() + index}
-            ListEmptyComponent={() => <Text>Tidak ada riwayat absensi</Text>}
-          />
+          {loading === true ? (
+            <SkeletonLoader />
+          ) : (
+            <>
+              {groupedAttendanceHistory.today.length > 0 && (
+                <>
+                  <Text style={global.itemDate}>Hari ini</Text>
+                  <FlatList
+                    data={groupedAttendanceHistory.today}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) =>
+                      item.id + refresh.toString() + index
+                    }
+                  />
+                </>
+              )}
+              {groupedAttendanceHistory.yesterday.length > 0 && (
+                <>
+                  <Text style={global.itemDate}>Kemarin</Text>
+                  <FlatList
+                    data={groupedAttendanceHistory.yesterday}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) =>
+                      item.id + refresh.toString() + index
+                    }
+                  />
+                </>
+              )}
+              {groupedAttendanceHistory.lastWeek.length > 0 && (
+                <>
+                  <Text style={global.itemDate}>Minggu ini</Text>
+                  <FlatList
+                    data={groupedAttendanceHistory.lastWeek}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) =>
+                      item.id + refresh.toString() + index
+                    }
+                  />
+                </>
+              )}
+              {groupedAttendanceHistory.older.length > 0 && (
+                <>
+                  <Text style={global.itemDate}>
+                    Lebih dari seminggu yang lalu
+                  </Text>
+                  <FlatList
+                    data={groupedAttendanceHistory.older}
+                    renderItem={renderItem}
+                    keyExtractor={(item, index) =>
+                      item.id + refresh.toString() + index
+                    }
+                  />
+                </>
+              )}
+              {attendanceHistory.length === 0 && (
+                <Text>Tidak ada riwayat absensi</Text>
+              )}
+            </>
+          )}
         </View>
       </View>
     </View>
