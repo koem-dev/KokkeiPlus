@@ -25,6 +25,8 @@ const EmployeeAttendance = () => {
   const [attendanceType, setAttendanceType] = useState("");
   const [refresh, setRefresh] = useState(false);
   const [loading, setLoading] = useState(true);
+  const [hasCheckedIn, setHasCheckedIn] = useState(false);
+  const [hasCheckedOut, setHasCheckedOut] = useState(false);
   const userId = auth.currentUser.uid;
   const userRef = db.collection("users-res").doc(userId);
 
@@ -66,6 +68,17 @@ const EmployeeAttendance = () => {
         if (userData && userData.attendance) {
           setAttendanceHistory(userData.attendance);
           setLoading(false);
+
+          // Check if user has already checked in or checked out for today
+          const today = moment().format("DD/MM/YYYY");
+          const hasCheckedInToday = userData.attendance.some(
+            (entry) => entry.date === today && entry.type === "in"
+          );
+          const hasCheckedOutToday = userData.attendance.some(
+            (entry) => entry.date === today && entry.type === "out"
+          );
+          setHasCheckedIn(hasCheckedInToday);
+          setHasCheckedOut(hasCheckedOutToday);
         } else {
           setAttendanceHistory([]);
         }
@@ -96,6 +109,20 @@ const EmployeeAttendance = () => {
   const handleAttendance = () => {
     setModalVisible(false);
 
+    if (attendanceType === "in" && hasCheckedIn) {
+      alert("Anda sudah melakukan absensi kehadiran hari ini.");
+      return;
+    } else if (attendanceType === "out" && hasCheckedOut) {
+      alert("Anda sudah melakukan absensi kepulangan hari ini.");
+      return;
+    }
+
+    if (attendanceType === "in") {
+      setHasCheckedIn(true);
+    } else if (attendanceType === "out") {
+      setHasCheckedOut(true);
+    }
+
     userRef
       .update({
         attendance: firebase.firestore.FieldValue.arrayUnion({
@@ -118,16 +145,27 @@ const EmployeeAttendance = () => {
     askForCameraPermission();
   }, []);
 
-  const handleOutBarCodeScanner = ({ type, data }) => {
-    setScanned(true);
-    setShowOutScanner(false);
-    setAttendanceType("out");
-    getLocation(data);
-  };
   const handleInBarCodeScanner = ({ type, data }) => {
+    if (hasCheckedIn) {
+      alert("You have already checked in for today.");
+      return;
+    }
+
     setScanned(true);
     setShowInScanner(false);
     setAttendanceType("in");
+    getLocation(data);
+  };
+
+  const handleOutBarCodeScanner = ({ type, data }) => {
+    if (hasCheckedOut) {
+      alert("You have already checked out for today.");
+      return;
+    }
+
+    setScanned(true);
+    setShowOutScanner(false);
+    setAttendanceType("out");
     getLocation(data);
   };
 
@@ -143,12 +181,10 @@ const EmployeeAttendance = () => {
 
   const renderItem = ({ item }) => (
     <View style={global.itemWrapper}>
-      <Text style={global.itemDate}>
-        {item.date} ({moment(item.date, "DD/MM/YYYY").fromNow()})
-      </Text>
+      <Text style={global.itemDate}>{item.date}</Text>
       <Text>Waktu: {item.time}</Text>
       <Text>Lokasi: {item.location}</Text>
-      <Text>Jenis: {item.location === "in" ? "Kedatangan" : "Kepulangan"}</Text>
+      <Text>Jenis: {item.type === "in" ? "Kedatangan" : "Kepulangan"}</Text>
     </View>
   );
 
