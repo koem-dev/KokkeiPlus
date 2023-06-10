@@ -13,6 +13,8 @@ import ResellerProfile from "./src/pages/user/UserProfile";
 import LoginScreen from "./src/pages/auth/login/LoginScreen";
 import RegisterScreen from "./src/pages/auth/register/RegisterScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
+import EmployeeAttendance from "./src/pages/employee/EmployeeAttendance";
+import UserWork from "./src/pages/user/UserWork";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -20,7 +22,9 @@ const Stack = createStackNavigator();
 function MainStack() {
   return (
     <SafeAreaProvider>
-      <Stack.Navigator screenOptions={{ headerShown: false }}>
+      <Stack.Navigator
+        screenOptions={{ headerShown: false, animationEnabled: false }}
+      >
         <Stack.Screen name="AuthGroup" component={AuthStack} />
         <Stack.Screen name="HomeGroup" component={HomeTab} />
       </Stack.Navigator>
@@ -52,6 +56,32 @@ function AuthStack() {
         name="RegisterScreen"
         component={RegisterScreen}
         options={{ headerTitle: "Daftar" }}
+      />
+    </Stack.Navigator>
+  );
+}
+
+function FeatureStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="UserWork"
+        component={UserWork}
+      />
+      <Stack.Screen
+        name="EmployeeAttendance"
+        component={EmployeeAttendance}
+        options={{
+          headerShown: true,
+          title: false,
+          headerBackTitle: "Kembali",
+          headerBackTitleVisible: true,
+          headerBackTitleStyle: {
+            fontSize: 14,
+          },
+          animationEnabled: false,
+        }}
       />
     </Stack.Navigator>
   );
@@ -89,8 +119,8 @@ function HomeTab() {
             <FontAwesome name="bookmark" color={color} size={20} />
           ),
         }}
-        name="Kerja"
-        component={ResellerDashboard}
+        name="Pekerjaan"
+        component={FeatureStack}
       />
       <Tab.Screen
         options={{

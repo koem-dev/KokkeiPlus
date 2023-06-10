@@ -24,7 +24,7 @@ const global = StyleSheet.create({
   },
   // Box Wrapper Title
   boxWrapperTitle: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: "bold",
     color: GC.blackText,
   },
@@ -192,6 +192,25 @@ const global = StyleSheet.create({
     fontWeight: "bold",
     color: GC.secondaryButtonText,
   },
+  buttonWarning: {
+    backgroundColor: GC.warningButton,
+    width: "100%",
+    height: 50,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  buttonWarningText: {
+    fontSize: 16,
+    fontWeight: "bold",
+    color: GC.warningButtonText,
+  },
+  itemWrapper: {
+    width: "100%",
+    marginBottom: 20,
+  },
 
   //! Checkbox
   checkboxWrapper: {
@@ -228,6 +247,9 @@ const global = StyleSheet.create({
   w50: {
     width: "50%",
   },
+  w45: {
+    width: "45%",
+  },
   w75: {
     width: "75%",
   },
@@ -236,6 +258,32 @@ const global = StyleSheet.create({
   },
   w65: {
     width: "65%",
+  },
+
+  // Barcode
+  barcodeBox: {
+    width: "100%",
+    height: "100%",
+  },
+
+  //Image
+  imageFeatureThumbnail: {
+    width: 80,
+    height: 80,
+  },
+
+  //Feature
+  featuresWrapper: {
+    width: "100%",
+    marginBottom: 20,
+    flexDirection: "row",
+    marginTop: 10,
+  },
+  featureWrapper: {
+    marginBottom: 20,
+    marginRight: 20,
+    alignItems: "center",
+    justifyContent: "center",
   },
 });
 

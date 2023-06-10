@@ -9,6 +9,8 @@ export const primaryButton = "#0077C2";
 export const primaryButtonText = "#FFFFFF";
 export const secondaryButton = "#FFFFFF";
 export const secondaryButtonText = "#999999";
+export const warningButton = "#FF6961";
+export const warningButtonText = "#FFFFFF";
 
 export const primaryIcon = "#0077C2";
 export const secondaryIcon = "#2D2D2D";

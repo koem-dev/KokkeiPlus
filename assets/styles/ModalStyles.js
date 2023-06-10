@@ -14,8 +14,8 @@ const ModalStyles = StyleSheet.create({
     borderRadius: 8,
     padding: 20,
     justifyContent: "center",
+    alignItems: "center",
     width: "90%",
-    height: 180,
   },
 
   modalContent: {
@@ -65,6 +65,27 @@ const ModalStyles = StyleSheet.create({
     fontSize: 13,
     color: "#999",
     fontWeight: "bold",
+  },
+  modalDetails: {
+    marginTop: 15,
+    marginBottom: 20,
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  modalDetail: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    margin: 5,
+  },
+  modalDetailText: {
+    fontSize: 14,
+    color: "#999",
+    marginLeft: 10,
+  },
+  modalQRCode: {
+    width: "100%",
+    height: "60%",
   },
 });
 
