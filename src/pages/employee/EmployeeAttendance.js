@@ -10,6 +10,7 @@ import global from "../../../assets/styles/GlobalStyles";
 import AttedanceModal from "../../components/modals/AttendanceModal";
 import BarcodeScan from "../../components/BarcodeScan";
 import SkeletonLoader from "../../features/SkeletonLoader";
+import * as GC from "../../../assets/colors/GlobalColors";
 
 const EmployeeAttendance = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -146,7 +147,6 @@ const EmployeeAttendance = () => {
 
   const handleInBarCodeScanner = ({ type, data }) => {
     if (hasCheckedIn) {
-      alert("You have already checked in for today.");
       return;
     }
 
@@ -158,7 +158,6 @@ const EmployeeAttendance = () => {
 
   const handleOutBarCodeScanner = ({ type, data }) => {
     if (hasCheckedOut) {
-      alert("You have already checked out for today.");
       return;
     }
 
@@ -217,19 +216,72 @@ const EmployeeAttendance = () => {
         <View style={global.boxWrapper}>
           <Text style={global.boxWrapperPageTitle}>Absensi Karyawan</Text>
         </View>
-        <View style={[global.boxWrapper, global.wh]}>
-          <Pressable
-            onPress={handleShowInScanner}
-            style={[global.button, global.w45]}
-          >
-            <Text style={global.buttonText}>Kehadiran</Text>
-          </Pressable>
-          <Pressable
-            onPress={handleShowOutScanner}
-            style={[global.buttonWarning, global.w45, global.whSpace]}
-          >
-            <Text style={global.buttonWarningText}>Kepulangan</Text>
-          </Pressable>
+
+        <View style={[global.boxWrapper, global.wh, global.center]}>
+          {loading === true ? (
+            <SkeletonLoader width={280} />
+          ) : (
+            <>
+              {!hasCheckedIn ? (
+                <>
+                  <Pressable
+                    onPress={handleShowInScanner}
+                    style={[global.button, global.w50, global.wh]}
+                  >
+                    <FontAwesome name="sign-out" size={20} color="white" />
+                    <Text style={[global.buttonText, global.whSpace]}>
+                      Kehadiran
+                    </Text>
+                  </Pressable>
+                </>
+              ) : (
+                <View style={[global.buttonDisabled, global.w50, global.wh]}>
+                  <FontAwesome
+                    name="ban"
+                    size={20}
+                    color={GC.disabledButtonTex}
+                  />
+                </View>
+              )}
+              {!hasCheckedOut ? (
+                <>
+                  <Pressable
+                    onPress={handleShowOutScanner}
+                    style={[
+                      global.buttonSecondary,
+                      global.w50,
+                      global.whSpace,
+                      global.wh,
+                    ]}
+                  >
+                    <FontAwesome
+                      name="sign-in"
+                      size={20}
+                      color={GC.secondaryButtonText}
+                    />
+                    <Text style={[global.buttonSecondaryText, global.whSpace]}>
+                      Kepulangan
+                    </Text>
+                  </Pressable>
+                </>
+              ) : (
+                <View
+                  style={[
+                    global.buttonDisabled,
+                    global.w50,
+                    global.whSpace,
+                    global.wh,
+                  ]}
+                >
+                  <FontAwesome
+                    name="ban"
+                    size={20}
+                    color={GC.disabledButtonText}
+                  />
+                </View>
+              )}
+            </>
+          )}
         </View>
 
         <BarcodeScan

@@ -34,7 +34,7 @@ const UserWork = () => {
           <Text style={global.boxWrapperTitle}>Fitur Pengguna:</Text>
         </View>
 
-        <View style={global.featuresWrapper}>
+        <View style={[global.boxWrapper, global.wh]}>
           {user?.roles.employee === true && (
             <>
               <Pressable
@@ -42,17 +42,17 @@ const UserWork = () => {
                 style={global.featureWrapper}
               >
                 <Image
-                  source={require("../../../assets/images/attendant.png")}
-                  style={global.imageFeatureThumbnail}
+                  source={require("../../../assets/images/attendance.png")}
+                  style={global.featureIcon}
                 />
-                <Text>Absensi</Text>
+                <Text style={global.featureText}>Absensi</Text>
               </Pressable>
-              <Pressable style={global.featureWrapper}>
+              <Pressable style={[global.featureWrapper, global.whSpace]}>
                 <Image
                   source={require("../../../assets/images/shipping.png")}
-                  style={global.imageFeatureThumbnail}
+                  style={global.featureIcon}
                 />
-                <Text>Kirim Barang</Text>
+                <Text style={global.featureText}>Pengiriman</Text>
               </Pressable>
             </>
           )}

@@ -169,6 +169,8 @@ const global = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: GC.primaryButtonBorder,
   },
   buttonText: {
     fontSize: 16,
@@ -185,15 +187,15 @@ const global = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
     borderWidth: 1,
-    borderColor: GC.inputFieldBorder,
+    borderColor: GC.secondaryButtonBorder,
   },
   buttonSecondaryText: {
     fontSize: 16,
     fontWeight: "bold",
     color: GC.secondaryButtonText,
   },
-  buttonWarning: {
-    backgroundColor: GC.warningButton,
+  buttonDisabled: {
+    backgroundColor: GC.disabledButton,
     width: "100%",
     height: 50,
     padding: 10,
@@ -201,12 +203,16 @@ const global = StyleSheet.create({
     borderRadius: 10,
     alignItems: "center",
     justifyContent: "center",
+    borderWidth: 1,
+    borderColor: GC.disabledButtonBorder,
   },
-  buttonWarningText: {
+  buttonDisabledText: {
     fontSize: 16,
     fontWeight: "bold",
-    color: GC.warningButtonText,
+    color: GC.disabledButtonText,
   },
+
+  // Item
   itemWrapper: {
     width: "100%",
     marginBottom: 20,
@@ -259,6 +265,18 @@ const global = StyleSheet.create({
   w65: {
     width: "65%",
   },
+  left: {
+    alignItems: "flex-start",
+    justifyContent: "flex-start",
+  },
+  right: {
+    alignItems: "flex-end",
+    justifyContent: "flex-end",
+  },
+  center: {
+    alignItems: "center",
+    justifyContent: "center",
+  },
 
   // Barcode
   barcodeBox: {
@@ -266,24 +284,51 @@ const global = StyleSheet.create({
     height: "100%",
   },
 
-  //Image
-  imageFeatureThumbnail: {
-    width: 80,
-    height: 80,
-  },
-
-  //Feature
-  featuresWrapper: {
-    width: "100%",
-    marginBottom: 20,
-    flexDirection: "row",
-    marginTop: 10,
-  },
+  // Feature
   featureWrapper: {
     marginBottom: 20,
     marginRight: 20,
     alignItems: "center",
     justifyContent: "center",
+  },
+  featureIcon: {
+    width: 50,
+    height: 50,
+    marginBottom: 5,
+  },
+  featureText: {
+    fontSize: 12,
+    color: GC.blackText,
+  },
+
+  // Qr Code
+  barcodeWrapper: {
+    flex: 1,
+    flexDirection: "column",
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  scanBox: {
+    width: 200,
+    height: 200,
+    borderWidth: 2,
+    borderColor: "white",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  scanFiller: {
+    width: 380,
+    height: 350,
+    backgroundColor: "transparent",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  scanLine: {
+    width: 196,
+    height: 2,
+    backgroundColor: "white",
+    borderRadius: 50,
+    overflow: "hidden",
   },
 });
 

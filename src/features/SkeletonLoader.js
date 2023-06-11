@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View, StyleSheet, Animated } from "react-native";
 
-const SkeletonLoader = () => {
+const SkeletonLoader = ({ width, height }) => {
   const [animation] = useState(new Animated.Value(0));
 
   useEffect(() => {
@@ -32,7 +32,8 @@ const SkeletonLoader = () => {
     });
 
     return {
-      flex: 1,
+      width,
+      height,
       backgroundColor,
     };
   };
