@@ -1,16 +1,15 @@
-import { View, Text, Pressable } from "react-native";
 import React, { useEffect, useState } from "react";
-import global from "../../../assets/styles/GlobalStyles";
+import { View, Text, Pressable, FlatList } from "react-native";
 import { BarCodeScanner } from "expo-barcode-scanner";
-import AttedanceModal from "../../components/modals/AttendanceModal";
-import BarcodeScan from "../../components/BarcodeScan";
 import { StatusBar } from "expo-status-bar";
 import { db, auth } from "../../services/firebase";
 import firebase from "firebase/compat";
-import { FlatList } from "react-native-gesture-handler";
 import { FontAwesome } from "@expo/vector-icons";
-import SkeletonLoader from "../../features/SkeletonLoader";
 import moment from "moment/moment";
+import global from "../../../assets/styles/GlobalStyles";
+import AttedanceModal from "../../components/modals/AttendanceModal";
+import BarcodeScan from "../../components/BarcodeScan";
+import SkeletonLoader from "../../features/SkeletonLoader";
 
 const EmployeeAttendance = () => {
   const [hasPermission, setHasPermission] = useState(null);
@@ -52,7 +51,7 @@ const EmployeeAttendance = () => {
 
   useEffect(() => {
     var date = new Date().getDate(); //Current Date
-    var month = new Date().getMonth() + 1; //Current Month
+    var month = (new Date().getMonth() + 1).toString().padStart(2, "0"); //Current Month with leading zero
     var year = new Date().getFullYear(); //Current Year
     var hours = new Date().getHours(); //Current Hours
     var min = new Date().getMinutes(); //Current Minutes
