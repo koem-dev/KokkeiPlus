@@ -9,6 +9,14 @@ const global = StyleSheet.create({
     alignItems: "center",
     padding: 15,
     width: "100%",
+    height: "100%",
+  },
+  pureContainer: {
+    flex: 1,
+    backgroundColor: GC.background,
+    alignItems: "center",
+    width: "100%",
+    height: "100%",
   },
 
   //! Box Wrapper
@@ -212,8 +220,8 @@ const global = StyleSheet.create({
     color: GC.disabledButtonText,
   },
 
-  // Item
-  itemWrapper: {
+  // Card
+  cardWrapper: {
     width: "100%",
     marginBottom: 20,
   },
@@ -303,32 +311,29 @@ const global = StyleSheet.create({
 
   // Qr Code
   barcodeWrapper: {
-    flex: 1,
-    flexDirection: "column",
     justifyContent: "center",
     alignItems: "center",
+    width: "100%",
+    height: "100%",
+  },
+  camera: {
+    width: "100%",
+    height: "100%",
   },
   scanBox: {
     width: 200,
     height: 200,
     borderWidth: 2,
     borderColor: "white",
-    alignItems: "center",
-    justifyContent: "center",
-  },
-  scanFiller: {
-    width: 380,
-    height: 350,
     backgroundColor: "transparent",
+  },
+  scanButton: {
+    width: 80,
+    height: 80,
     alignItems: "center",
     justifyContent: "center",
-  },
-  scanLine: {
-    width: 196,
-    height: 2,
-    backgroundColor: "white",
+    backgroundColor: "rgba(0, 0, 0, 0.5)",
     borderRadius: 50,
-    overflow: "hidden",
   },
 });
 

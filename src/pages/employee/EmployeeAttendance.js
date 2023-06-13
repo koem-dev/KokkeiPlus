@@ -211,175 +211,194 @@ const EmployeeAttendance = () => {
   }
 
   return (
-    <View style={global.container}>
-      <View style={global.boxWrapperContainer}>
-        <View style={global.boxWrapper}>
-          <Text style={global.boxWrapperPageTitle}>Absensi Karyawan</Text>
-        </View>
-
-        <View style={[global.boxWrapper, global.wh, global.center]}>
-          {loading === true ? (
-            <SkeletonLoader width={280} />
-          ) : (
-            <>
-              {!hasCheckedIn ? (
-                <>
-                  <Pressable
-                    onPress={handleShowInScanner}
-                    style={[global.button, global.w50, global.wh]}
-                  >
-                    <FontAwesome name="sign-out" size={20} color="white" />
-                    <Text style={[global.buttonText, global.whSpace]}>
-                      Kehadiran
-                    </Text>
-                  </Pressable>
-                </>
-              ) : (
-                <View style={[global.buttonDisabled, global.w50, global.wh]}>
-                  <FontAwesome
-                    name="ban"
-                    size={20}
-                    color={GC.disabledButtonTex}
-                  />
-                </View>
-              )}
-              {!hasCheckedOut ? (
-                <>
-                  <Pressable
-                    onPress={handleShowOutScanner}
-                    style={[
-                      global.buttonSecondary,
-                      global.w50,
-                      global.whSpace,
-                      global.wh,
-                    ]}
-                  >
-                    <FontAwesome
-                      name="sign-in"
-                      size={20}
-                      color={GC.secondaryButtonText}
-                    />
-                    <Text style={[global.buttonSecondaryText, global.whSpace]}>
-                      Kepulangan
-                    </Text>
-                  </Pressable>
-                </>
-              ) : (
-                <View
-                  style={[
-                    global.buttonDisabled,
-                    global.w50,
-                    global.whSpace,
-                    global.wh,
-                  ]}
-                >
-                  <FontAwesome
-                    name="ban"
-                    size={20}
-                    color={GC.disabledButtonText}
-                  />
-                </View>
-              )}
-            </>
-          )}
-        </View>
-
+    <View
+      style={[
+        showInScanner || showOutScanner
+          ? global.pureContainer
+          : global.container,
+      ]}
+    >
+      {showInScanner && (
         <BarcodeScan
           visible={showInScanner}
           result={handleInBarCodeScanner}
           scanned={scanned}
           cancel={() => setShowInScanner(false)}
         />
+      )}
+      {showOutScanner && (
         <BarcodeScan
           visible={showOutScanner}
           result={handleOutBarCodeScanner}
           scanned={scanned}
           cancel={() => setShowOutScanner(false)}
         />
+      )}
+      {showInScanner || showOutScanner ? null : (
+        <>
+          <View style={global.boxWrapperContainer}>
+            <View style={global.boxWrapper}>
+              <Text style={global.boxWrapperPageTitle}>Absensi Karyawan</Text>
+            </View>
 
-        <AttedanceModal
-          visible={modalVisible}
-          onClose={() => setModalVisible(false)}
-          ModalTitle={attendanceType == "in" ? "Absen Masuk" : "Absen Keluar"}
-          ModalDescription={
-            attendanceType == "in"
-              ? "Apakah Anda yakin ingin masuk pada lokasi tersebut?"
-              : "Apakah Anda yakin ingin keluar pada lokasi tersebut?"
-          }
-          ModalLocation={location}
-          ModalDate={currentDate}
-          ModalTime={currentTime}
-          onConfirm={handleAttendance}
-        />
+            <View style={[global.boxWrapper, global.wh, global.center]}>
+              {loading === true ? (
+                <SkeletonLoader width={280} />
+              ) : (
+                <>
+                  {!hasCheckedIn ? (
+                    <>
+                      <Pressable
+                        onPress={handleShowInScanner}
+                        style={[global.button, global.w50, global.wh]}
+                      >
+                        <FontAwesome name="sign-out" size={20} color="white" />
+                        <Text style={[global.buttonText, global.whSpace]}>
+                          Kehadiran
+                        </Text>
+                      </Pressable>
+                    </>
+                  ) : (
+                    <View
+                      style={[global.buttonDisabled, global.w50, global.wh]}
+                    >
+                      <FontAwesome
+                        name="ban"
+                        size={20}
+                        color={GC.disabledButtonText}
+                      />
+                    </View>
+                  )}
+                  {!hasCheckedOut ? (
+                    <>
+                      <Pressable
+                        onPress={handleShowOutScanner}
+                        style={[
+                          global.buttonSecondary,
+                          global.w50,
+                          global.whSpace,
+                          global.wh,
+                        ]}
+                      >
+                        <FontAwesome
+                          name="sign-in"
+                          size={20}
+                          color={GC.secondaryButtonText}
+                        />
+                        <Text
+                          style={[global.buttonSecondaryText, global.whSpace]}
+                        >
+                          Kepulangan
+                        </Text>
+                      </Pressable>
+                    </>
+                  ) : (
+                    <View
+                      style={[
+                        global.buttonDisabled,
+                        global.w50,
+                        global.whSpace,
+                        global.wh,
+                      ]}
+                    >
+                      <FontAwesome
+                        name="ban"
+                        size={20}
+                        color={GC.disabledButtonText}
+                      />
+                    </View>
+                  )}
+                </>
+              )}
+            </View>
 
-        <View style={global.boxWrapper}>
-          <View style={[global.wh, { marginBottom: 20 }]}>
-            <FontAwesome name="clock-o" size={20} color="black" />
-            <Text style={[global.boxWrapperTitle, global.whSpace]}>
-              Riwayat Kehadiran
-            </Text>
+            <AttedanceModal
+              visible={modalVisible}
+              onClose={() => setModalVisible(false)}
+              ModalTitle={
+                attendanceType == "in" ? "Absen Masuk" : "Absen Keluar"
+              }
+              ModalDescription={
+                attendanceType == "in"
+                  ? "Apakah Anda yakin ingin masuk pada lokasi tersebut?"
+                  : "Apakah Anda yakin ingin keluar pada lokasi tersebut?"
+              }
+              ModalLocation={location}
+              ModalDate={currentDate}
+              ModalTime={currentTime}
+              onConfirm={handleAttendance}
+            />
+
+            <View style={global.boxWrapper}>
+              <View style={[global.wh, { marginBottom: 20 }]}>
+                <FontAwesome name="clock-o" size={20} color="black" />
+                <Text style={[global.boxWrapperTitle, global.whSpace]}>
+                  Riwayat Kehadiran
+                </Text>
+              </View>
+              {loading === true ? (
+                <SkeletonLoader />
+              ) : (
+                <>
+                  {groupedAttendanceHistory.today.length > 0 && (
+                    <>
+                      <Text style={global.itemDate}>Hari ini</Text>
+                      <FlatList
+                        data={groupedAttendanceHistory.today}
+                        renderItem={renderItem}
+                        keyExtractor={(item, index) =>
+                          item.id + refresh.toString() + index
+                        }
+                      />
+                    </>
+                  )}
+                  {groupedAttendanceHistory.yesterday.length > 0 && (
+                    <>
+                      <Text style={global.itemDate}>Kemarin</Text>
+                      <FlatList
+                        data={groupedAttendanceHistory.yesterday}
+                        renderItem={renderItem}
+                        keyExtractor={(item, index) =>
+                          item.id + refresh.toString() + index
+                        }
+                      />
+                    </>
+                  )}
+                  {groupedAttendanceHistory.lastWeek.length > 0 && (
+                    <>
+                      <Text style={global.itemDate}>Minggu ini</Text>
+                      <FlatList
+                        data={groupedAttendanceHistory.lastWeek}
+                        renderItem={renderItem}
+                        keyExtractor={(item, index) =>
+                          item.id + refresh.toString() + index
+                        }
+                      />
+                    </>
+                  )}
+                  {groupedAttendanceHistory.older.length > 0 && (
+                    <>
+                      <Text style={global.itemDate}>
+                        Lebih dari seminggu yang lalu
+                      </Text>
+                      <FlatList
+                        data={groupedAttendanceHistory.older}
+                        renderItem={renderItem}
+                        keyExtractor={(item, index) =>
+                          item.id + refresh.toString() + index
+                        }
+                      />
+                    </>
+                  )}
+                  {attendanceHistory.length === 0 && (
+                    <Text>Tidak ada riwayat absensi</Text>
+                  )}
+                </>
+              )}
+            </View>
           </View>
-          {loading === true ? (
-            <SkeletonLoader />
-          ) : (
-            <>
-              {groupedAttendanceHistory.today.length > 0 && (
-                <>
-                  <Text style={global.itemDate}>Hari ini</Text>
-                  <FlatList
-                    data={groupedAttendanceHistory.today}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) =>
-                      item.id + refresh.toString() + index
-                    }
-                  />
-                </>
-              )}
-              {groupedAttendanceHistory.yesterday.length > 0 && (
-                <>
-                  <Text style={global.itemDate}>Kemarin</Text>
-                  <FlatList
-                    data={groupedAttendanceHistory.yesterday}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) =>
-                      item.id + refresh.toString() + index
-                    }
-                  />
-                </>
-              )}
-              {groupedAttendanceHistory.lastWeek.length > 0 && (
-                <>
-                  <Text style={global.itemDate}>Minggu ini</Text>
-                  <FlatList
-                    data={groupedAttendanceHistory.lastWeek}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) =>
-                      item.id + refresh.toString() + index
-                    }
-                  />
-                </>
-              )}
-              {groupedAttendanceHistory.older.length > 0 && (
-                <>
-                  <Text style={global.itemDate}>
-                    Lebih dari seminggu yang lalu
-                  </Text>
-                  <FlatList
-                    data={groupedAttendanceHistory.older}
-                    renderItem={renderItem}
-                    keyExtractor={(item, index) =>
-                      item.id + refresh.toString() + index
-                    }
-                  />
-                </>
-              )}
-              {attendanceHistory.length === 0 && (
-                <Text>Tidak ada riwayat absensi</Text>
-              )}
-            </>
-          )}
-        </View>
-      </View>
+        </>
+      )}
     </View>
   );
 };

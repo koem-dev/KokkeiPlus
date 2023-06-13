@@ -27,8 +27,35 @@ function MainStack() {
       >
         <Stack.Screen name="AuthGroup" component={AuthStack} />
         <Stack.Screen name="HomeGroup" component={HomeTab} />
+        <Stack.Screen name="FeatureGroup" component={FeatureStack} />
       </Stack.Navigator>
     </SafeAreaProvider>
+  );
+}
+
+function FeatureStack() {
+  return (
+    <Stack.Navigator>
+      <Stack.Screen
+        options={{ headerShown: false }}
+        name="UserWork"
+        component={UserWork}
+      />
+      <Stack.Screen
+        name="EmployeeAttendance"
+        component={EmployeeAttendance}
+        options={{
+          headerShown: true,
+          title: false,
+          headerBackTitle: "Kembali",
+          headerBackTitleVisible: true,
+          headerBackTitleStyle: {
+            fontSize: 14,
+          },
+          animationEnabled: false,
+        }}
+      />
+    </Stack.Navigator>
   );
 }
 
@@ -56,32 +83,6 @@ function AuthStack() {
         name="RegisterScreen"
         component={RegisterScreen}
         options={{ headerTitle: "Daftar" }}
-      />
-    </Stack.Navigator>
-  );
-}
-
-function FeatureStack() {
-  return (
-    <Stack.Navigator>
-      <Stack.Screen
-        options={{ headerShown: false }}
-        name="UserWork"
-        component={UserWork}
-      />
-      <Stack.Screen
-        name="EmployeeAttendance"
-        component={EmployeeAttendance}
-        options={{
-          headerShown: true,
-          title: false,
-          headerBackTitle: "Kembali",
-          headerBackTitleVisible: true,
-          headerBackTitleStyle: {
-            fontSize: 14,
-          },
-          animationEnabled: false,
-        }}
       />
     </Stack.Navigator>
   );
