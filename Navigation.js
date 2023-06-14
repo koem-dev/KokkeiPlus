@@ -15,6 +15,7 @@ import RegisterScreen from "./src/pages/auth/register/RegisterScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
 import EmployeeAttendance from "./src/pages/employee/EmployeeAttendance";
 import UserWork from "./src/pages/user/UserWork";
+import * as GC from "./assets/colors/GlobalColors";
 
 const Tab = createBottomTabNavigator();
 const Stack = createStackNavigator();
@@ -47,7 +48,7 @@ function FeatureStack() {
         options={{
           headerShown: true,
           title: false,
-          headerBackTitle: "Kembali",
+          headerBackTitle: "Kembali ke Pekerjaan",
           headerBackTitleVisible: true,
           headerBackTitleStyle: {
             fontSize: 14,
@@ -103,6 +104,7 @@ function HomeTab() {
           marginBottom: 10,
         },
         headerShown: false,
+        tabBarActiveTintColor: GC.primary,
       }}
     >
       <Tab.Screen

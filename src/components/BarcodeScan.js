@@ -11,10 +11,10 @@ import { BarCodeScanner } from "expo-barcode-scanner";
 import { StatusBar } from "expo-status-bar";
 import modal from "../../assets/styles/ModalStyles";
 import global from "../../assets/styles/GlobalStyles";
-import { height } from "deprecated-react-native-prop-types/DeprecatedImagePropType";
 import { Animated } from "react-native";
 import { FontAwesome, Ionicons } from "@expo/vector-icons";
 import { Camera } from "expo-camera";
+import * as GC from "../../assets/colors/GlobalColors";
 
 const BarcodeScan = ({ visible, result, scanned, cancel }) => {
   const [flashOn, setFlashOn] = useState(false);
@@ -67,20 +67,26 @@ const BarcodeScan = ({ visible, result, scanned, cancel }) => {
         resizeMode={"cover"}
         ratio="16:9"
       />
+
       <Animated.View style={[global.scanBox, animatedStyle]} />
+
       <View style={[global.scanButtonWrapper, global.wh]}>
-        <Pressable onPress={cancel} style={global.scanButton}>
-          <Ionicons name="close" size={35} color="white" />
-        </Pressable>
+        <Pressable style={[global.scanAltButton, global.whSpace]}></Pressable>
+
+        <View style={[global.scanMainButtonOutline, global.whSpace]}>
+          <Pressable onPress={cancel} style={global.scanMainButton}>
+            <Ionicons name="close" size={45} color={GC.primary} />
+          </Pressable>
+        </View>
 
         <Pressable
           onPress={toggleFlash}
-          style={[global.scanButton, global.whSpace]}
+          style={[global.scanAltButton, global.whSpace]}
         >
           <Ionicons
             name={flashOn ? "flash" : "flash-off"}
             size={25}
-            color="white"
+            color={GC.primary}
           />
         </Pressable>
       </View>
