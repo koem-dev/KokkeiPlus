@@ -5,7 +5,7 @@ import { SafeAreaView } from "react-native-safe-area-context";
 import { auth, db } from "../../services/firebase";
 import global from "../../../assets/styles/GlobalStyles";
 
-const UserWork = () => {
+const UsWork = () => {
   const navigation = useNavigation();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -68,4 +68,4 @@ const UserWork = () => {
   );
 };
 
-export default UserWork;
+export default UsWork;

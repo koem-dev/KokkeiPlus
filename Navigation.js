@@ -8,13 +8,13 @@ import {
   CardStyleInterpolators,
 } from "@react-navigation/stack";
 import AuthScreen from "./src/pages/auth/AuthScreen";
-import ResellerDashboard from "./src/pages/user/UserDashboard";
-import ResellerProfile from "./src/pages/user/UserProfile";
+import ResellerDashboard from "./src/pages/user/UsDashboard";
+import ResellerProfile from "./src/pages/user/UsProfile";
 import LoginScreen from "./src/pages/auth/login/LoginScreen";
 import RegisterScreen from "./src/pages/auth/register/RegisterScreen";
 import { SafeAreaProvider } from "react-native-safe-area-context";
-import EmployeeAttendance from "./src/pages/employee/EmployeeAttendance";
-import UserWork from "./src/pages/user/UserWork";
+import EmAttendance from "./src/pages/employee/EmAttendance";
+import UsWork from "./src/pages/user/UsWork";
 import * as GC from "./assets/colors/GlobalColors";
 
 const Tab = createBottomTabNavigator();
@@ -40,11 +40,11 @@ function FeatureStack() {
       <Stack.Screen
         options={{ headerShown: false }}
         name="UserWork"
-        component={UserWork}
+        component={UsWork}
       />
       <Stack.Screen
         name="EmployeeAttendance"
-        component={EmployeeAttendance}
+        component={EmAttendance}
         options={{
           headerShown: true,
           title: false,

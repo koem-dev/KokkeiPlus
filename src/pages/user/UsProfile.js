@@ -10,7 +10,7 @@ import ConfirmModal from "../../components/modals/ConfirmModal";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SkeletonLoader from "../../features/SkeletonLoader";
 
-const Profile = () => {
+const UsProfile = () => {
   const [modalVisible, setModalVisible] = useState(false);
   const [modalResult, setModalResult] = useState(false);
   const [user, setUser] = useState(null); // ? This user
@@ -176,4 +176,4 @@ const Profile = () => {
   );
 };
 
-export default Profile;
+export default UsProfile;

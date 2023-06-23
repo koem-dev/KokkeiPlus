@@ -6,6 +6,7 @@ import {
   View,
   TouchableOpacity,
   Pressable,
+  ProgressBarAndroid,
 } from "react-native";
 
 import Checkbox from "expo-checkbox";
@@ -15,9 +16,10 @@ import { auth, db } from "../../../services/firebase";
 // CSS
 import global from "../../../../assets/styles/GlobalStyles";
 import Dropdown from "../../../components/Dropdown";
+import { ProgressBar } from "react-native-paper";
 
 const RegisterScreen = () => {
-  //? Data
+  // Data
   const [name, setName] = React.useState("");
   const [phoneNumber, setPhoneNumber] = React.useState("");
   const [email, setEmail] = React.useState("");
@@ -25,9 +27,16 @@ const RegisterScreen = () => {
   const [password, setPassword] = React.useState("");
   const [passwordConfirmation, setPasswordConfirmation] = React.useState("");
   const [gender, setGender] = React.useState("");
+  const [birthDate, setBirthDate] = React.useState("");
   const [showOptions, setShowOptions] = React.useState(false);
-  //? Condition
+  // Condition
   const [acceptedTerms, setAcceptedTerms] = React.useState(false);
+  // Page
+  const [page, setPage] = React.useState(1);
+  // Progress
+  const numFields = 4; // Total number of fields in the form
+  const numFilled = page;
+  const percentFilled = (numFilled / numFields) * 100;
 
   const handleGenderOptionPress = (option) => {
     setGender(option);
@@ -40,6 +49,17 @@ const RegisterScreen = () => {
     setShowOptions(!showOptions);
   };
   const genderOptions = ["Laki-Laki", "Perempuan"];
+
+  const handleDateChange = (text) => {
+    // Add a "/" character between the day, month, and year
+    if (
+      (text.length === 2 || text.length === 5) &&
+      text.charAt(text.length - 1) !== "/"
+    ) {
+      text += "/";
+    }
+    setBirthDate(text);
+  };
 
   const handleRegister = () => {
     if (
@@ -85,109 +105,45 @@ const RegisterScreen = () => {
   };
 
   return (
-    <ScrollView>
-      <View style={global.container}>
-        <View style={global.formWrapper}>
-          <Text style={global.formTitle}>
-            Halo, Isi kelengkapan data untuk menjadi Reseller Kokkei!
+    <ScrollView style={global.container}>
+      <View style={global.boxWrapperContainer}>
+        <View style={global.boxWrapper}>
+          <Text style={global.titleText}>Buat akun baru di Kokkei Plus</Text>
+          <ProgressBar
+            progress={percentFilled / 100}
+            color="#0081C9"
+            style={global.progressBar}
+          />
+          <Text style={global.detailText}>
+            {page}/{numFields} kolom terisi
           </Text>
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>Nama Lengkap: *</Text>
-            <TextInput
-              onChangeText={setName}
-              value={name}
-              placeholder="Masukkan nama lengkap"
-              style={global.formInput}
-            />
-          </View>
-
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>Jenis Kelamin: *</Text>
-            <Pressable onPress={toggleOptions}>
-              <TextInput
-                onChangeText={setGender}
-                value={gender}
-                placeholder="Pilih jenis kelamin"
-                style={global.formInput}
-                editable={false}
-              />
-            </Pressable>
-            <Dropdown
-              visible={showOptions}
-              options={genderOptions}
-              selectedOption={gender}
-              handleOptionPress={handleGenderOptionPress}
-              toggleOptions={toggleOptions}
-            />
-          </View>
-
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>No HP: *</Text>
-            <TextInput
-              onChangeText={setPhoneNumber}
-              value={phoneNumber}
-              placeholder="Masukkan no hp"
-              inputMode="tel"
-              style={global.formInput}
-            />
-          </View>
-
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>Alamat: *</Text>
-            <TextInput
-              onChangeText={setAddress}
-              value={address}
-              placeholder="Masukkan alamat"
-              style={global.formInput}
-            />
-          </View>
-
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>Email: *</Text>
-            <TextInput
-              onChangeText={setEmail}
-              value={email}
-              placeholder="Masukkan email"
-              inputMode="email"
-              style={global.formInput}
-            />
-          </View>
-
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>Password: *</Text>
-            <TextInput
-              onChangeText={setPassword}
-              value={password}
-              placeholder="Masukkan password"
-              secureTextEntry={true}
-              style={global.formInput}
-            />
-          </View>
-
-          <View style={global.inputWrapper}>
-            <Text style={global.formInputLabel}>Konfirmasi Password: *</Text>
-            <TextInput
-              onChangeText={setPasswordConfirmation}
-              value={passwordConfirmation}
-              placeholder="Konfirmasi password"
-              secureTextEntry={true}
-              style={global.formInput}
-            />
-          </View>
-
-          <View style={global.checkboxWrapper}>
-            <Checkbox
-              value={acceptedTerms}
-              onValueChange={setAcceptedTerms}
-              style={global.checkbox}
-            />
-            <Text> Saya menyetujui syarat dan ketentuan </Text>
-          </View>
-
-          <TouchableOpacity onPress={handleRegister} style={global.button}>
-            <Text style={global.buttonText}>Daftar</Text>
-          </TouchableOpacity>
         </View>
+        {page === 1 ? (
+          <>
+            <View style={global.boxWrapper}>
+              <View style={global.inputWrapper}>
+                <Text style={global.formInputLabel}>Nama Lengkap: *</Text>
+                <TextInput
+                  onChangeText={setName}
+                  value={name}
+                  placeholder="Masukkan nama lengkap"
+                  style={global.formInput}
+                />
+              </View>
+              <View style={global.inputWrapper}>
+                <Text style={global.formInputLabel}>Tanggal Lahir: *</Text>
+                <TextInput
+                  value={birthDate}
+                  onChangeText={handleDateChange}
+                  placeholder="DD/MM/YYYY"
+                  keyboardType="numeric"
+                  maxLength={10}
+                  style={global.formInput}
+                />
+              </View>
+            </View>
+          </>
+        ) : null}
       </View>
     </ScrollView>
   );

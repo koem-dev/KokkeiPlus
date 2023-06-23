@@ -57,8 +57,8 @@ const ResellerLoginScreen = () => {
 
   return (
     <View style={global.container}>
-      <View style={global.formWrapper}>
-        <Text style={global.formTitle}>Halo, selamat datang!</Text>
+      <View style={global.boxWrapper}>
+        <Text style={global.titleText}>Halo, selamat datang!</Text>
 
         <View style={global.inputWrapper}>
           <Text style={global.formInputLabel}>Email: *</Text>

@@ -11,8 +11,11 @@ import AttedanceModal from "../../components/modals/AttendanceModal";
 import BarcodeScan from "../../components/BarcodeScan";
 import SkeletonLoader from "../../features/SkeletonLoader";
 import * as GC from "../../../assets/colors/GlobalColors";
+import Loading from "../../features/Loading";
+import { Camera } from "expo-camera";
+import EmAttendanceCalendar from "../../components/EmAttendanceCalendar";
 
-const EmployeeAttendance = () => {
+const EmAttendance = () => {
   const [hasPermission, setHasPermission] = useState(null);
   const [scanned, setScanned] = useState(false);
   const [showInScanner, setShowInScanner] = useState(false);
@@ -27,6 +30,8 @@ const EmployeeAttendance = () => {
   const [loading, setLoading] = useState(true);
   const [hasCheckedIn, setHasCheckedIn] = useState(false);
   const [hasCheckedOut, setHasCheckedOut] = useState(false);
+  const [cameraReady, setCameraReady] = useState(true);
+  const [showCalendar, setShowCalendar] = useState(false);
   const userId = auth.currentUser.uid;
   const userRef = db.collection("users-res").doc(userId);
 
@@ -88,10 +93,19 @@ const EmployeeAttendance = () => {
 
   const askForCameraPermission = () => {
     (async () => {
-      const { status } = await BarCodeScanner.requestPermissionsAsync();
+      const { status } = await Camera.requestCameraPermissionsAsync();
       setHasPermission(status == "granted");
     })();
   };
+
+  useEffect(() => {
+    (async () => {
+      const { status } = await Camera.requestCameraPermissionsAsync();
+      if (status === "granted") {
+        setCameraReady(true);
+      }
+    })();
+  }, []);
 
   const getLocation = (data) => {
     if (data == "001F6") {
@@ -104,6 +118,10 @@ const EmployeeAttendance = () => {
       setLocation("Lokasi tidak ditemukan");
       setModalVisible(false);
     }
+  };
+
+  const handleCalendar = () => {
+    setShowCalendar(true);
   };
 
   const handleAttendance = () => {
@@ -218,7 +236,7 @@ const EmployeeAttendance = () => {
           : global.container,
       ]}
     >
-      {showInScanner && (
+      {showInScanner && cameraReady && (
         <BarcodeScan
           visible={showInScanner}
           result={handleInBarCodeScanner}
@@ -226,7 +244,7 @@ const EmployeeAttendance = () => {
           cancel={() => setShowInScanner(false)}
         />
       )}
-      {showOutScanner && (
+      {showOutScanner && cameraReady && (
         <BarcodeScan
           visible={showOutScanner}
           result={handleOutBarCodeScanner}
@@ -234,6 +252,7 @@ const EmployeeAttendance = () => {
           cancel={() => setShowOutScanner(false)}
         />
       )}
+      {!cameraReady && <Loading />}
       {showInScanner || showOutScanner ? null : (
         <>
           <View style={global.boxWrapperContainer}>
@@ -330,68 +349,83 @@ const EmployeeAttendance = () => {
             />
 
             <View style={global.boxWrapper}>
-              <View style={[global.wh, { marginBottom: 20 }]}>
-                <FontAwesome name="clock-o" size={20} color="black" />
-                <Text style={[global.boxWrapperTitle, global.whSpace]}>
-                  Riwayat Kehadiran
-                </Text>
+              <View style={global.wh}>
+                <View style={[global.wh, { marginBottom: 20 }]}>
+                  <FontAwesome name="clock-o" size={20} color="black" />
+                  <Text style={[global.boxWrapperTitle, global.whSpace]}>
+                    Riwayat Kehadiran
+                  </Text>
+                </View>
+                <View style={{ marginBottom: 20 }}>
+                  <Pressable onPress={handleCalendar}>
+                    <Text style={[global.boxWrapperLink, global.whSpace]}>
+                      Lihat Kalender
+                    </Text>
+                  </Pressable>
+                </View>
               </View>
               {loading === true ? (
                 <SkeletonLoader />
               ) : (
                 <>
-                  {groupedAttendanceHistory.today.length > 0 && (
+                  {showCalendar ? (
+                    <EmAttendanceCalendar userId={userId} />
+                  ) : (
                     <>
-                      <Text style={global.itemDate}>Hari ini</Text>
-                      <FlatList
-                        data={groupedAttendanceHistory.today}
-                        renderItem={renderItem}
-                        keyExtractor={(item, index) =>
-                          item.id + refresh.toString() + index
-                        }
-                      />
+                      {groupedAttendanceHistory.today.length > 0 && (
+                        <>
+                          <Text style={global.itemDate}>Hari ini</Text>
+                          <FlatList
+                            data={groupedAttendanceHistory.today}
+                            renderItem={renderItem}
+                            keyExtractor={(item, index) =>
+                              item.id + refresh.toString() + index
+                            }
+                          />
+                        </>
+                      )}
+                      {groupedAttendanceHistory.yesterday.length > 0 && (
+                        <>
+                          <Text style={global.itemDate}>Kemarin</Text>
+                          <FlatList
+                            data={groupedAttendanceHistory.yesterday}
+                            renderItem={renderItem}
+                            keyExtractor={(item, index) =>
+                              item.id + refresh.toString() + index
+                            }
+                          />
+                        </>
+                      )}
+                      {groupedAttendanceHistory.lastWeek.length > 0 && (
+                        <>
+                          <Text style={global.itemDate}>Minggu ini</Text>
+                          <FlatList
+                            data={groupedAttendanceHistory.lastWeek}
+                            renderItem={renderItem}
+                            keyExtractor={(item, index) =>
+                              item.id + refresh.toString() + index
+                            }
+                          />
+                        </>
+                      )}
+                      {groupedAttendanceHistory.older.length > 0 && (
+                        <>
+                          <Text style={global.itemDate}>
+                            Lebih dari seminggu yang lalu
+                          </Text>
+                          <FlatList
+                            data={groupedAttendanceHistory.older}
+                            renderItem={renderItem}
+                            keyExtractor={(item, index) =>
+                              item.id + refresh.toString() + index
+                            }
+                          />
+                        </>
+                      )}
+                      {attendanceHistory.length === 0 && (
+                        <Text>Tidak ada riwayat absensi</Text>
+                      )}
                     </>
-                  )}
-                  {groupedAttendanceHistory.yesterday.length > 0 && (
-                    <>
-                      <Text style={global.itemDate}>Kemarin</Text>
-                      <FlatList
-                        data={groupedAttendanceHistory.yesterday}
-                        renderItem={renderItem}
-                        keyExtractor={(item, index) =>
-                          item.id + refresh.toString() + index
-                        }
-                      />
-                    </>
-                  )}
-                  {groupedAttendanceHistory.lastWeek.length > 0 && (
-                    <>
-                      <Text style={global.itemDate}>Minggu ini</Text>
-                      <FlatList
-                        data={groupedAttendanceHistory.lastWeek}
-                        renderItem={renderItem}
-                        keyExtractor={(item, index) =>
-                          item.id + refresh.toString() + index
-                        }
-                      />
-                    </>
-                  )}
-                  {groupedAttendanceHistory.older.length > 0 && (
-                    <>
-                      <Text style={global.itemDate}>
-                        Lebih dari seminggu yang lalu
-                      </Text>
-                      <FlatList
-                        data={groupedAttendanceHistory.older}
-                        renderItem={renderItem}
-                        keyExtractor={(item, index) =>
-                          item.id + refresh.toString() + index
-                        }
-                      />
-                    </>
-                  )}
-                  {attendanceHistory.length === 0 && (
-                    <Text>Tidak ada riwayat absensi</Text>
                   )}
                 </>
               )}
@@ -403,4 +437,4 @@ const EmployeeAttendance = () => {
   );
 };
 
-export default EmployeeAttendance;
+export default EmAttendance;

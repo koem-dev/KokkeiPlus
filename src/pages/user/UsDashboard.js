@@ -10,7 +10,7 @@ import dashboard from "../../../assets/styles/DashboardStyles";
 import { SafeAreaView } from "react-native-safe-area-context";
 import SkeletonLoader from "../../features/SkeletonLoader";
 
-const HomeScreen = () => {
+const UsDashboard = () => {
   const [user, setUser] = useState(null); // ? This user
   const [loading, setLoading] = useState(true);
   const [isDataFetched, setIsDataFetched] = useState(false);
@@ -81,4 +81,4 @@ const HomeScreen = () => {
   );
 };
 
-export default HomeScreen;
+export default UsDashboard;

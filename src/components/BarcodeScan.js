@@ -75,7 +75,7 @@ const BarcodeScan = ({ visible, result, scanned, cancel }) => {
 
         <View style={[global.scanMainButtonOutline, global.whSpace]}>
           <Pressable onPress={cancel} style={global.scanMainButton}>
-            <Ionicons name="close" size={45} color={GC.primary} />
+            <Ionicons name="close" size={45} color="black" />
           </Pressable>
         </View>
 
@@ -86,7 +86,7 @@ const BarcodeScan = ({ visible, result, scanned, cancel }) => {
           <Ionicons
             name={flashOn ? "flash" : "flash-off"}
             size={25}
-            color={GC.primary}
+            color="black"
           />
         </Pressable>
       </View>

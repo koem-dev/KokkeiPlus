@@ -6,8 +6,7 @@ const global = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: GC.background,
-    alignItems: "center",
-    padding: 15,
+    padding: 18,
     width: "100%",
     height: "100%",
   },
@@ -29,6 +28,7 @@ const global = StyleSheet.create({
   boxWrapper: {
     padding: 10,
     marginBottom: 10,
+    width: "100%",
   },
   // Box Wrapper Title
   boxWrapperTitle: {
@@ -69,6 +69,43 @@ const global = StyleSheet.create({
   boxWrapperContentTitle: {
     fontSize: 14,
     fontWeight: "bold",
+    color: GC.blackText,
+  },
+  boxWrapperLink: {
+    fontSize: 12,
+    color: GC.primary,
+  },
+
+  // Component
+  progressBar: {
+    height: 20,
+    borderRadius: 10,
+    width: "100%",
+    marginBottom: 20,
+    marginTop: 20,
+  },
+
+  // Text
+  detailText: {
+    fontSize: 12,
+    color: GC.secondaryText,
+  },
+  detailTextBold: {
+    fontSize: 12,
+    fontWeight: "bold",
+    color: GC.blackText,
+  },
+  detailTextLink: {
+    fontSize: 12,
+    color: GC.primary,
+  },
+  titleText: {
+    fontSize: 20,
+    fontWeight: "bold",
+    color: GC.blackText,
+  },
+  mainText: {
+    fontSize: 14,
     color: GC.blackText,
   },
 
@@ -115,14 +152,6 @@ const global = StyleSheet.create({
   },
 
   //! Form
-  formWrapper: {
-    width: "100%",
-    padding: 20,
-  },
-  inputWrapper: {
-    width: "100%",
-    marginBottom: 10,
-  },
   formTitle: {
     fontSize: 18,
     fontWeight: "bold",
