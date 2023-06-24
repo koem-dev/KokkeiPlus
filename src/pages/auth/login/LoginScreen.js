@@ -3,7 +3,6 @@ import { Text, TextInput, TouchableOpacity, View } from "react-native";
 import Checkbox from "expo-checkbox";
 import { useNavigation } from "@react-navigation/native";
 import { auth, AuthProvider } from "../../../services/firebase";
-// CSS
 import global from "../../../../assets/styles/GlobalStyles";
 import * as GC from "../../../../assets/colors/GlobalColors";
 
@@ -57,10 +56,12 @@ const ResellerLoginScreen = () => {
 
   return (
     <View style={global.container}>
-      <View style={global.boxWrapper}>
-        <Text style={global.titleText}>Halo, selamat datang!</Text>
+      <View style={global.boxWrapperContainer}>
+        <View style={global.boxWrapper}>
+          <Text style={global.titleText}>Halo, selamat datang!</Text>
+        </View>
 
-        <View style={global.inputWrapper}>
+        <View style={global.boxWrapper}>
           <Text style={global.formInputLabel}>Email: *</Text>
           <TextInput
             onChangeText={setEmail}
@@ -71,7 +72,7 @@ const ResellerLoginScreen = () => {
           />
         </View>
 
-        <View style={global.inputWrapper}>
+        <View style={global.boxWrapper}>
           <Text style={global.formInputLabel}>Password: *</Text>
           <TextInput
             onChangeText={setPassword}
@@ -82,26 +83,30 @@ const ResellerLoginScreen = () => {
           />
         </View>
 
-        <View style={global.checkboxWrapper}>
-          <Checkbox
-            value={showPassword}
-            onValueChange={toggleShowPassword}
-            style={global.checkbox}
-            color={GC.checkboxColor}
-          />
-          <Text>Tampilkan password</Text>
+        <View style={global.boxWrapper}>
+          <View style={global.checkboxWrapper}>
+            <Checkbox
+              value={showPassword}
+              onValueChange={toggleShowPassword}
+              style={global.checkbox}
+              color={GC.checkboxColor}
+            />
+            <Text>Tampilkan password</Text>
+          </View>
         </View>
 
-        <TouchableOpacity onPress={handleLogin} style={global.button}>
-          <Text style={global.buttonText}>Login</Text>
-        </TouchableOpacity>
+        <View style={global.boxWrapper}>
+          <TouchableOpacity onPress={handleLogin} style={global.button}>
+            <Text style={global.buttonText}>Login</Text>
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          onPress={directToRegisterScreen}
-          style={global.buttonSecondary}
-        >
-          <Text style={global.buttonSecondaryText}>Belum punya akun?</Text>
-        </TouchableOpacity>
+          <TouchableOpacity
+            onPress={directToRegisterScreen}
+            style={global.buttonSecondary}
+          >
+            <Text style={global.buttonSecondaryText}>Belum punya akun?</Text>
+          </TouchableOpacity>
+        </View>
       </View>
     </View>
   );

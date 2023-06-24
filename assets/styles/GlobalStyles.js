@@ -27,7 +27,7 @@ const global = StyleSheet.create({
   // Box Wrapper
   boxWrapper: {
     padding: 10,
-    marginBottom: 10,
+    marginBottom: 5,
     width: "100%",
   },
   // Box Wrapper Title
@@ -84,6 +84,22 @@ const global = StyleSheet.create({
     marginBottom: 20,
     marginTop: 20,
   },
+  otpContainer: {
+    flexDirection: "row",
+    justifyContent: "center",
+  },
+  otpInput: {
+    borderWidth: 1,
+    borderColor: GC.disabledButtonBorder,
+    borderRadius: 16,
+    paddingHorizontal: 16,
+    paddingVertical: 16,
+    marginHorizontal: 8,
+    fontSize: 24,
+    fontWeight: "bold",
+    textAlign: "center",
+    width: 64,
+  },
 
   // Text
   detailText: {
@@ -105,7 +121,7 @@ const global = StyleSheet.create({
     color: GC.blackText,
   },
   mainText: {
-    fontSize: 14,
+    fontSize: 16,
     color: GC.blackText,
   },
 
@@ -152,15 +168,33 @@ const global = StyleSheet.create({
   },
 
   //! Form
-  formTitle: {
-    fontSize: 18,
-    fontWeight: "bold",
-    color: GC.blackText,
-    marginBottom: 10,
-  },
   formInput: {
     backgroundColor: GC.background,
     width: "100%",
+    height: 50,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    color: GC.blackText,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: GC.border,
+  },
+  formInputWithPicker: {
+    backgroundColor: GC.background,
+    width: "70%",
+    height: 50,
+    padding: 10,
+    marginBottom: 10,
+    borderRadius: 10,
+    color: GC.blackText,
+    borderStyle: "solid",
+    borderWidth: 1,
+    borderColor: GC.border,
+  },
+  formInputPicker: {
+    backgroundColor: GC.background,
+    width: "30%",
     height: 50,
     padding: 10,
     marginBottom: 10,
@@ -187,21 +221,18 @@ const global = StyleSheet.create({
     marginBottom: 10,
   },
   formInputLabel: {
-    fontSize: 12,
+    fontSize: 14,
     color: GC.blackText,
     marginBottom: 10,
   },
 
   //! Button
-  buttonWrapper: {
-    width: "100%",
-    padding: 20,
-  },
   button: {
     backgroundColor: GC.primaryButton,
     width: "100%",
     height: 50,
     padding: 10,
+    marginTop: 10,
     marginBottom: 10,
     borderRadius: 10,
     alignItems: "center",
@@ -219,6 +250,7 @@ const global = StyleSheet.create({
     width: "100%",
     height: 50,
     padding: 10,
+    marginTop: 10,
     marginBottom: 10,
     borderRadius: 10,
     alignItems: "center",
@@ -236,6 +268,7 @@ const global = StyleSheet.create({
     width: "100%",
     height: 50,
     padding: 10,
+    marginTop: 10,
     marginBottom: 10,
     borderRadius: 10,
     alignItems: "center",
@@ -305,14 +338,17 @@ const global = StyleSheet.create({
   left: {
     alignItems: "flex-start",
     justifyContent: "flex-start",
+    alignSelf: "flex-start",
   },
   right: {
     alignItems: "flex-end",
     justifyContent: "flex-end",
+    alignSelf: "flex-end",
   },
   center: {
     alignItems: "center",
     justifyContent: "center",
+    alignSelf: "center",
   },
 
   // Barcode
