@@ -10,7 +10,6 @@ import {
 } from "react-native";
 
 import Checkbox from "expo-checkbox";
-import { Picker } from "@react-native-picker/picker";
 import { auth, db } from "../../../services/firebase";
 import global from "../../../../assets/styles/GlobalStyles";
 import Dropdown from "../../../components/Dropdown";
@@ -21,6 +20,7 @@ const RegisterScreen = () => {
   // Data
   const [name, setName] = useState("");
   const [phoneNumber, setPhoneNumber] = useState("");
+  const [phoneNumberAreaCode, setPhoneNumberAreaCode] = useState("");
   const [email, setEmail] = useState("");
   const [address, setAddress] = useState("");
   const [password, setPassword] = useState("");
@@ -208,16 +208,17 @@ const RegisterScreen = () => {
             <View style={global.boxWrapper}>
               <Text style={global.formInputLabel}>No HP: *</Text>
               <View style={global.wh}>
-                <Picker
-                  style={global.formInputPicker}
-                  selectedValue={selectedPhoneNumber}
+                <Dropdown
+                  options={[
+                    { label: "+62", value: "+62" },
+                    { label: "+1", value: "+1" },
+                  ]}
+                  selectedValue={phoneNumberAreaCode}
                   onValueChange={(itemValue, itemIndex) =>
-                    setSelectedPhoneNumber(itemValue)
+                    setPhoneNumberAreaCode(itemValue)
                   }
-                >
-                  <Picker.Item label="+62" value="+62" />
-                  <Picker.Item label="+1" value="+1" />
-                </Picker>
+                  defaultValue={"+62"}
+                />
                 <TextInput
                   onChangeText={setPhoneNumber}
                   value={phoneNumber}

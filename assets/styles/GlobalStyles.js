@@ -41,7 +41,8 @@ const global = StyleSheet.create({
     fontWeight: "bold",
     color: GC.blackText,
   },
-  // Box Wrapper Pressable
+
+  //! Box Wrapper Pressable
   boxWrapperPressable: {
     backgroundColor: "transparent",
     width: "100%",
@@ -101,7 +102,7 @@ const global = StyleSheet.create({
     width: 64,
   },
 
-  // Text
+  //! Text
   detailText: {
     fontSize: 12,
     color: GC.secondaryText,
@@ -186,10 +187,12 @@ const global = StyleSheet.create({
     height: 50,
     padding: 10,
     marginBottom: 10,
-    borderRadius: 10,
+    borderTopRightRadius: 10,
+    borderBottomRightRadius: 10,
     color: GC.blackText,
     borderStyle: "solid",
     borderWidth: 1,
+    borderLeftWidth: 0,
     borderColor: GC.border,
   },
   formInputPicker: {
@@ -198,11 +201,18 @@ const global = StyleSheet.create({
     height: 50,
     padding: 10,
     marginBottom: 10,
-    borderRadius: 10,
+    borderTopLeftRadius: 10,
+    borderBottomLeftRadius: 10,
     color: GC.blackText,
     borderStyle: "solid",
     borderWidth: 1,
     borderColor: GC.border,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  pickerText: {
+    fontSize: 14,
+    color: GC.blackText,
   },
   formInputError: {
     backgroundColor: GC.background,
@@ -282,7 +292,7 @@ const global = StyleSheet.create({
     color: GC.disabledButtonText,
   },
 
-  // Card
+  //! Card
   cardWrapper: {
     width: "100%",
     marginBottom: 20,
@@ -299,7 +309,7 @@ const global = StyleSheet.create({
     marginRight: 10,
   },
 
-  //Slicer
+  //! Slicer
   wh: {
     flexDirection: "row",
     alignItems: "center",
@@ -351,13 +361,13 @@ const global = StyleSheet.create({
     alignSelf: "center",
   },
 
-  // Barcode
+  //! Barcode
   barcodeBox: {
     width: "100%",
     height: "100%",
   },
 
-  // Feature
+  //! Feature
   featureWrapper: {
     marginBottom: 20,
     marginRight: 20,
@@ -374,7 +384,7 @@ const global = StyleSheet.create({
     color: GC.blackText,
   },
 
-  // Qr Code
+  //! Qr Code
   barcodeWrapper: {
     justifyContent: "center",
     alignItems: "center",
@@ -424,6 +434,23 @@ const global = StyleSheet.create({
     justifyContent: "center",
     backgroundColor: "white",
     borderRadius: 50,
+  },
+
+  //! Modal
+  modalContainer: {
+    width: "100%",
+    height: "100%",
+    justifyContent: "flex-end",
+    alignItems: "center",
+    backgroundColor: "transparent",
+    backgroundColor: "rgba(0,0,0,0.5)",
+  },
+  modalWrapper: {
+    marginBottom: 20,
+    width: "90%",
+    borderRadius: 10,
+    padding: 50,
+    backgroundColor: GC.background,
   },
 });
 
