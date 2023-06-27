@@ -44,7 +44,10 @@ const LoginScreen = () => {
     <View style={global.container}>
       <View style={global.boxWrapperContainer}>
         <View style={global.boxWrapper}>
-          <Text style={global.boxWrapperTitle}>Halo, selamat datang!</Text>
+          <Text style={global.titleText}>Halo, selamat datang!</Text>
+        </View>
+
+        <View style={global.boxWrapper}>
           <TouchableOpacity
             style={[global.boxWrapperPressable, global.spacing]}
             onPress={directToLoginScreen}
